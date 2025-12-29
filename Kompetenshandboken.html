@@ -53,6 +53,7 @@
         .container {
             display: flex;
             height: 100vh;
+            overflow: hidden;
         }
 
         .sidebar {
@@ -60,6 +61,7 @@
             background: var(--color-surface);
             border-right: 1px solid var(--color-border);
             overflow-y: auto;
+            overflow-x: hidden;
             padding: 20px;
             position: fixed;
             height: 100vh;
@@ -101,6 +103,7 @@
             text-decoration: none;
             font-size: 14px;
             border-left: 3px solid transparent;
+            word-wrap: break-word;
         }
 
         .nav-link:hover {
@@ -119,6 +122,7 @@
             margin-left: 280px;
             flex: 1;
             overflow-y: auto;
+            overflow-x: hidden;
             padding: 40px 60px;
             background: var(--color-background);
         }
@@ -380,6 +384,8 @@
             margin: -40px -60px;
             padding: 0;
             display: none;
+            height: auto;
+            overflow: visible;
         }
 
         .page.fullbleed.active {
@@ -388,10 +394,12 @@
 
         .epa-frame {
             width: 100%;
-            height: 100vh;
+            height: auto;
             border: 0;
             display: block;
             background: transparent;
+            min-height: calc(100vh - 160px);
+            overflow: visible;
         }
 
         @media (max-width: 768px) {
@@ -514,7 +522,7 @@
                         <li><strong>Mini-CEX</strong> - Kort klinisk observation av en specifik kompetens</li>
                         <li><strong>Skriftlig reflektionsuppgift</strong> - ST-läkaren reflekterar över sitt lärande</li>
                         <li><strong>Patientfeedback</strong> - Direkt feedback från patienter</li>
-                        <li><strong>360-feedback</strong> - Feedback från andra läkare och sjukvårdspersonal</li>
+                        <li><strong>Kollegafeedback</strong> - Feedback från andra läkare och sjukvårdspersonal</li>
                         <li><strong>Fallbeskrivning</strong> - Dokumentation och analys av specifika patientfall</li>
                     </ul>
                 </div>
@@ -619,7 +627,7 @@
 
             <!-- PROGRESSION PAGE -->
             <div id="progression" class="page">
-                <iframe class="epa-frame" src="progression.html" title="Progression" loading="lazy" style="height: auto; min-height: 100vh;"></iframe>
+                <iframe class="epa-frame" src="progression.html" title="Progression" loading="lazy"></iframe>
             </div>
 
         </div>
