@@ -72,12 +72,13 @@
         }
 
         .sidebar h2 {
-            font-size: 16px;
+            font-size: 13px;
             margin-bottom: 20px;
             color: var(--color-primary);
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            line-height: 1.4;
         }
 
         .nav-section {
@@ -117,6 +118,19 @@
             color: var(--color-primary);
             font-weight: 600;
             border-left-color: var(--color-primary);
+        }
+
+        .nav-link.external {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-link.external::after {
+            content: "↗";
+            font-size: 12px;
+            opacity: 0.6;
         }
 
         .main-content {
@@ -331,6 +345,7 @@
             padding: 40px;
             margin-bottom: 40px;
             border: 1px solid var(--color-border);
+            display: none;
         }
 
         .intro-hero h1 {
@@ -561,7 +576,7 @@
         </button>
 
         <nav class="sidebar" id="sidebar">
-            <h2>Kompetensutveckling och EPA</h2>
+            <h2>Kompetensutveckling ST-Akutsjukvård, Nusjukvården</h2>
             
             <div class="nav-section">
                 <div class="nav-link active" onclick="showPage('intro')">Introduktion</div>
@@ -586,16 +601,18 @@
                 <div class="nav-link" onclick="showPage('bedömningar')">Bedömningsmetoder</div>
                 <div class="nav-link" onclick="showPage('dreyfus')">Dreyfus Modellen</div>
             </div>
+
+            <div class="nav-section" style="border-top: 1px solid var(--color-border); padding-top: 15px; margin-top: 15px;">
+                <div class="nav-section-title">Resurser</div>
+                <a href="https://nal-schema.github.io/Schema/Handledningssamtal" target="_blank" class="nav-link external">Dokumentera handledningssamtal</a>
+                <a href="https://vgregion.sharepoint.com/sites/sy-nu-akutmottagning-lakare/SitePages/Utbildningsinformation-f%C3%B6r-ST-l%C3%A4kare-och-handledare.aspx" target="_blank" class="nav-link external">Tillbaka till ST-sidan</a>
+            </div>
         </nav>
 
         <div class="main-content" id="mainContent">
 
             <!-- INTRODUKTION PAGE -->
             <div id="intro" class="page active">
-                <div class="intro-hero">
-                    <h1>Inledning</h1>
-                </div>
-
                 <h2>Vad är EPA?</h2>
                 <p><strong>Entrustable Professional Activity (EPA)</strong> är en arbetsrelaterad aktivitet där ST-läkaren tillges olika grader av självständighet utifrån uppvisad kompetens. Grundtanken är att ST-läkaren ska bli <strong>betrodd (entrusted)</strong> att utföra aktiviteten eller delar därav utan uppsyn eller övervakning. Detta måste baseras på bedömningar av ST-läkaren som är gjorda under utbildningens gång.</p>
 
@@ -671,7 +688,7 @@
                         <li><strong>Mini-CEX</strong> - Kort klinisk observation av en specifik kompetens</li>
                         <li><strong>Skriftlig reflektionsuppgift</strong> - ST-läkaren reflekterar över sitt lärande</li>
                         <li><strong>Patientfeedback</strong> - Direkt feedback från patienter</li>
-                        <li><strong>Kollegafeedback</strong> - Feedback från andra läkare och sjukvårdspersonal</li>
+                        <li><strong>360-feedback</strong> - Feedback från andra läkare och sjukvårdspersonal</li>
                         <li><strong>Fallbeskrivning</strong> - Dokumentation och analys av specifika patientfall</li>
                     </ul>
                 </div>
@@ -808,7 +825,7 @@
             pages.forEach(page => page.classList.remove('active'));
 
             // Remove active class from all nav links
-            const navLinks = document.querySelectorAll('.nav-link');
+            const navLinks = document.querySelectorAll('.nav-link:not(.external)');
             navLinks.forEach(link => link.classList.remove('active'));
 
             // Show selected page
@@ -829,7 +846,7 @@
         }
 
         // Set intro as active on page load
-        document.querySelectorAll('.nav-link')[0].classList.add('active');
+        document.querySelectorAll('.nav-link:not(.external)')[0].classList.add('active');
     </script>
 </body>
 </html>
