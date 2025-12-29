@@ -14,10 +14,6 @@
   --muted: #626161;
   --soft: #9a9a99;
   --teal: #0684bd;
-  --teal-ink: #dceef7;
-  --blue-ink: #e0e8ff;
-  --orange-ink: #fde8dc;
-  --red-ink: #fce0dd;
   --shadow: 0 2px 8px rgba(0,0,0,0.08);
   --r-lg: 12px;
   --r-md: 8px;
@@ -32,7 +28,6 @@ body{
 }
 .page{max-width:1200px;margin:0 auto}
 .header{display:flex;flex-direction:column;gap:12px;margin-bottom:22px}
-.header-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
 .kicker{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--teal)}
 .h1{font-size:28px;font-weight:650;letter-spacing:-.03em;line-height:1.15;color:var(--text)}
 .meta-row{display:flex;gap:10px;flex-wrap:wrap;font-size:12px}
@@ -41,11 +36,9 @@ body{
 .meta-value{color:var(--text);font-weight:500}
 
 .grid{display:grid;grid-template-columns:1fr;gap:18px}
-
 .card{background:var(--surface-2);border:1px solid var(--border);border-radius:var(--r-lg);padding:16px 18px 18px;box-shadow:var(--shadow)}
 .card-title{font-size:13px;font-weight:650;text-transform:uppercase;letter-spacing:.14em;color:var(--soft);margin-bottom:10px}
 
-/* dropdown instructions */
 .dropdown-toggle{
   background:none;
   border:none;
@@ -84,7 +77,6 @@ body{
 .info-text ul{margin:6px 0 0 18px;color:var(--text)}
 .info-text li{margin:4px 0}
 
-/* ST buttons */
 .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
 .btn-year{
   border:1px solid var(--border);
@@ -107,7 +99,6 @@ body{
 }
 .dot{width:10px;height:10px;border-radius:50%;display:inline-block}
 
-/* competencies */
 .block{background:var(--surface-2);border:1px solid var(--border);border-radius:var(--r-lg);padding:14px 16px;margin-bottom:12px}
 .block-title{font-size:14px;font-weight:700;margin-bottom:8px}
 
@@ -146,65 +137,27 @@ body{
 <body>
   <div class="page">
     <div class="header">
-      <div class="header-top">
-        <div>
-          <div class="kicker">EPA 5</div>
-          <div class="h1">Handlägga en komplicerad larmsituation hos en patient med oklar presentation</div>
-        </div>
-      </div>
-
+      <div class="kicker">EPA 5</div>
+      <div class="h1">Handlägga en komplicerad larmsituation hos en patient med oklar presentation</div>
       <div class="meta-row">
         <div class="meta-pill">
           <span class="meta-label">EPA</span>
-          <span class="meta-value">5 - Handlägga en komplicerad larmsituation hos en patient med oklar presentation</span>
+          <span class="meta-value">5 - Handlägga en komplicerad larmsituation</span>
         </div>
       </div>
     </div>
 
     <div class="grid">
-      <!-- Instruktioner dropdown -->
       <div class="card">
         <button class="dropdown-toggle" id="toggleBtn" onclick="toggleDropdown()">Instruktioner</button>
         <div class="dropdown-content" id="dropdownContent">
           <div class="info-text">
-            <h3>Bedömning och handläggning av prio 1 patienter med oklar presentation</h3>
-            <p>Bedömning och handläggning av prio 1 patienter med en oklar presentation. Detta inkluderar initial resuscitering, datainsamling och prioritering av initial diagnostik hos en patient där patologin är okänd, oklar eller förvirrande. Att formulera en bred differentialdiagnostik för vidare patientomhändertagande och att modifiera denna plan allt eftersom mer information tillkommer och efter patientens svar på initial behandling. Kommunikation med patient, anhörig och teamet är centralt och kräver situationsmedvetenhet och ledarskapsförmågor. Kompetenser från tidigare EPA (1-4) ligger som grund för denna EPA och kommer inte upprepas här. För procedurer och behandlingar gäller att man kan indikationer, kontraindikationer, anatomiska landmärken, smärtlindringstekniker, teknik för procedur och potentiella komplikationer samt hur man undviker och behandlar dessa.</p>
-
-            <h3>Huvudsakliga områden:</h3>
-            <ul>
-              <li>prioritera nödvändiga handlingar från teamet och ev. konsulter samtidigt som man behåller överblicken och kontrollen vid komplicerade resusciteringar</li>
-              <li>skapa alternativa behandlingsplaner när patienten har övertygelser som talar emot vald behandling (t.ex. vägrar blodtransfusion)</li>
-              <li>behärska samt handleda i procedurer som är nödvändiga i resusciteringsarbetet</li>
-              <li>integrera flera team i ett då olika specialiteter samarbetar runt patienten</li>
-            </ul>
-
-            <h3>Exempel på patienter som ingår i denna EPA kan ha:</h3>
-            <ul>
-              <li>instabil traumapatient med flertalet komorbiditeter eller multipla skador som behöver prioriteras</li>
-              <li>instabil patient med medvetandepåverkan</li>
-              <li>instabil patient med oklar etiologi, t.ex chock UNS</li>
-              <li>en akut agiterad patient</li>
-              <li>rökskada eller brännskadad patient</li>
-              <li>patient som gjort ett suicidförsök</li>
-              <li>oklara kramper inkl. sekundära kramper</li>
-              <li>hypotermi/ hypertermi</li>
-            </ul>
-
-            <h3>Exempel på färdigheter som ingår i denna EPA:</h3>
-            <ul>
-              <li>sanering av kemikalier och radioaktivt material</li>
-              <li>CVK inläggning och hantering av CVK och port a cath</li>
-              <li>perikardiocentes</li>
-              <li>elkonvertering och extern pacing</li>
-              <li>noninvasiv ventilation (CPAP och BiPAP)</li>
-              <li>ultraljud vid chock UNS</li>
-              <li>sätta urinkateter och suprapubiskateter</li>
-            </ul>
+            <h3>Handläggning av komplicerad larmsituation med oklar presentation</h3>
+            <p>Genomföra en systematisk handläggning av patienter som presenteras med allvarlig sjukdom eller skada med oklar orsak. Detta inbegriper förmågan att bedöma och stabilisera, genomföra relevanta undersökningar och procedurer, samt kommunicera effektivt under situationer med flera inblandade team och högre stressnivå.</p>
           </div>
         </div>
       </div>
 
-      <!-- ST filter -->
       <div class="card">
         <div class="card-title">ST</div>
         <div class="toolbar">
@@ -226,18 +179,68 @@ body{
 
   <script>
     function toggleDropdown() {
-      const btn = document.getElementById("toggleBtn");
-      const content = document.getElementById("dropdownContent");
-      btn.classList.toggle("open");
-      content.classList.toggle("open");
+      document.getElementById("toggleBtn").classList.toggle("open");
+      document.getElementById("dropdownContent").classList.toggle("open");
     }
 
-    // STATIC data extracted from epa5.xlsx (EPA 5)
-    const DATA = [{"section":"Anamnes och status","level":"Nivå 1","year_band":"light","competency":"Genomföra en systematisk undersökning för att finna ledtrådar som leder till igenkännande av syndrom eller skador","descriptors":["Utb Internutbildning, lokal HLR-utbildning årligen","Bed DT 1-4 LF, klinisk observation"]},{"section":"Anamnes och status","level":"Nivå 2","year_band":"yellow","competency":"Använda resurser som krävs för att kunna initialt handlägga/stabilisera patienten, t.ex ringa vårdboende, patientansvarig läkare, vittnen eller anhöriga","descriptors":["Utb Klinisk tjänstgöring","Bed Handledarsamtal"]},{"section":"Anamnes och status","level":"Nivå 3","year_band":"dark","competency":"Kunna värdera när resuscitering ska avbrytas (pga futilitet, etiska grunder osv)","descriptors":[]},{"section":"Övrig datainsamling inklusive prov","level":"Nivå 2","year_band":"yellow","competency":"Se över nytta, risk, kontraindikationer och andra alternativ till ett diagnostiskt test eller procedur","descriptors":["Utb internutbildning, klinisk tjänstgöring, sidotjänstgöring IVA och anestesi, sidotjänstgöring pediatrik","Bed Mini-CEX, handledarsamtal"]},{"section":"Övrig datainsamling inklusive prov","level":"Nivå 3","year_band":"dark","competency":"Förstå begränsningar med tester, inklusive implikationer av falskt positiva och falskt negativa svar för sannolikheten för en diagnos efter provsvaret (post-test probability)","descriptors":["Internutbildning, handledarsamtal","Bed handledarsamtal, CBD"]},{"section":"Övrig datainsamling inklusive prov","level":"Nivå 4","year_band":"dark","competency":"Känna igen kunskapsbegränsningar i ovanliga och komplicerade kliniska situationer; skapa och implementera en plan för den bästa möjliga patientvården detta till trots","descriptors":["Utb Klinisk tjänstgöring, handledarsamtal, egen reflektion och inläsning","Bed handledarsamtal, CBD"]},{"section":"Övrig datainsamling inklusive prov","level":"Nivå 2","year_band":"yellow","competency":"Översiktlig tolkning av trauma-CT","descriptors":["Utb Klinisk tjänstgöring, självstudier, handledarsamtal, ev frivillig sidotjänstgöring på röntgen","Bed Handledarsamtal, DOPS"]},{"section":"Övrig datainsamling inklusive prov","level":"Nivå 2","year_band":"yellow","competency":"Bedöma volymstatus med hjälp av olika undersökningsmodaliteter","descriptors":["Utb Internutbildning, UL-kurs","Bed DT 1, DT 2 UL, medsittning"]},{"section":"Övrig datainsamling inklusive prov","level":"Nivå 3","year_band":"dark","competency":"Utföra och bedöma UL-fynd vid chock UNS","descriptors":["Utb Internutbildning, UL-kurs","Bed DT 1, DT 2 UL, medsittning"]},{"section":"Differentialdiagnostik och sannolikhetsbedömning","level":"Nivå 1","year_band":"light","competency":"Upprätta en lista med differentialdiagnostik och rangordna denna, samt ta med diagnoser med störst potential för morbiditet eller mortalitet.","descriptors":["Utb Internutbildning, klinisk tjänstgöring","Bed Klinisk observation, handledarsamtal, CBD"]},{"section":"Differentialdiagnostik och sannolikhetsbedömning","level":"Nivå 2","year_band":"yellow","competency":"Använda tillgänglig information för föra resonemang runt sannolikhetsbedömning för olika tillstånd samt tröskel för vidare utredning och/eller behandling","descriptors":["Utb  internutbildning, klinisk tjänstgöring","Bed Klinisk observation, handledarsamtal, CBD, LF DT 1-5, DF DT 1, 2, 4"]},{"section":"Differentialdiagnostik och sannolikhetsbedömning","level":"Nivå 3","year_band":"dark","competency":"Modifiera differentialdiagnostiken och utrednings-/ behandlingsplan när ny information tillkommer eller som respons på förändringar hos patienten över tid","descriptors":["Utb Klinisk tjänstgöring","Bed Handledarsamtal, observation under arbete"]},{"section":"Differentialdiagnostik och sannolikhetsbedömning","level":"Nivå 2","year_band":"yellow","competency":"Känna igen toxidrom och handläggning av akut intoxikerade patienter","descriptors":["Utb  internutbildning, klinisk tjänstgöring","Bed Klinisk observation, handledarsamtal, LF DT 1 & 4"]},{"section":"Utredning och initial behandling","level":"Nivå 1","year_band":"light","competency":"Agera på alarmerande fynd i status och påbörja behandling av dessa oavsett genes (t.ex syrgas vid hypoxi) trots diagnostisk osäkerhet","descriptors":["Utb Internutbildning","Bed Larmfall, DT 1-5, Mini-CEX"]},{"section":"Utredning och initial behandling","level":"Nivå 2","year_band":"yellow","competency":"Ordinera adekvat medicinering och doser för mindre vanliga akuta åkommor samt ta hänsyn till patientens vikt, ålder, njurfunktion. Överväga och förutse potentiella biverkningar.","descriptors":["Utb Internutbildning, klinisk tjänstgöring","Bed Klinisk observation"]},{"section":"Utredning och initial behandling","level":"Nivå 3","year_band":"dark","competency":"Planera för förutsett kliniskt förlopp och ha en plan om initiala åtgärder inte hjälper. Frångå sedvanlig behandling om denna inte finns tillgänglig, t.ex överväga trombolys för STEMI om akut coronarangio inte möjlig","descriptors":["Utb Handledarsamtal","Bed CBD, Mini-CEX"]},{"section":"Utredning och initial behandling","level":"Nivå 4","year_band":"dark","competency":"Utföra nödvändiga procedurer, förbereda sig för att undvika potentiella komplikationer, ha en plan B och känna igen resultatet som förväntas eller komplikationer som kan uppstå som resultat av proceduren","descriptors":["Utb Scenarioövningar","Bed Handledarsamtal"]},{"section":"Utredning och initial behandling","level":"Nivå 2","year_band":"yellow","competency":"Kunna göra nödvändiga procedurer på alla patienter, inklusive de med utmanande drag, som svår identifierbara anatomiska landmärken, väldigt unga eller väldigt gamla eller med komorbiditeter","descriptors":["Utb  internutbildning, klinisk tjänstgöring, sidotjänstgöring anestesi och IVA, luftvägskurs","Bed klinisk observation, DOPS, DT 2 färdigheter"]},{"section":"Utredning och initial behandling","level":"Nivå 3","year_band":"dark","competency":"Kunna indikationer för och genomförandet av lateral kantotomi och inferior kantolys","descriptors":["Utb klinisk tjänstgöring, internutbildning","Bed CBD, DOPS, handledarsamtal"]},{"section":"Utredning och initial behandling","level":"Nivå 4","year_band":"dark","competency":"Indikationer, doser och administrationsvägar för syrgasbehandling. Indikationer och doser för Adrenalin intramuskulärt och via nebulisator till vuxna och barn. Initial vätskebehandling vid chock","descriptors":["Utb Internutbildning, mental simulering, teoretisk utbildning","Bed handledarsamtal, modellträning med feedback"]},{"section":"Utredning och initial behandling","level":"Nivå 1","year_band":"light","competency":"Indikationer och doser för salbutamol via nebulisator till vuxna och barn","descriptors":["Utb Klinisk tjänstgöring, sidotjänstgöring pediatrik","Bed Klinisk observation, handledarsamtal"]},{"section":"Utredning och initial behandling","level":"Nivå 2","year_band":"yellow","competency":"Inotrop behandling vid chock","descriptors":["Utb Klinisk tjänstgöring, sidotjänstgöring pediatrik","Bed Klinisk observation, handledarsamtal"]},{"section":"Utredning och initial behandling","level":"Nivå 1","year_band":"light","competency":"Indikationer och doser av glukos intravenöst","descriptors":["Internutbildning, klinisk tjänstgöring,"Bed Klinisk observation, handledarsamtal, medsittning"]},{"section":"Utredning och initial behandling","level":"Nivå 2","year_band":"yellow","competency":"Indikationer, doser och administreringsvägar för Glukagon. Indikationer och doser av Tribonat eller bikarbonat","descriptors":["Utb Internutbildning, handledarsamtal","Bed Klinisk observation, CBD"]},{"section":"Utredning och initial behandling","level":"Nivå 1","year_band":"light","competency":"Elkonvertera instabil patient","descriptors":["Utb Klinisk tjänstgöring","Bed DOPS"]},{"section":"Utredning och initial behandling","level":"Nivå 2","year_band":"yellow","competency":"Genomföra extern pacing","descriptors":["Utb Klinisk tjänstgöring","Bed DOPS"]},{"section":"Utredning och initial behandling","level":"Nivå 3","year_band":"dark","competency":"CVK inläggning och hantering av CVK och PAC","descriptors":["Utb  internutbildning, klinisk tjänstgöring, sidotjänstgöring anestesi och IVA, klinisk tjänstgöring","Bed klinisk observation, DOPS, DT 2 färdigheter"]},{"section":"Utredning och initial behandling","level":"Nivå 4","year_band":"dark","competency":"Indikationer och utförande av perikardiocentes","descriptors":["Utb mental simulering, teoretisk genomgång","Bed Handledarsamtal"]},{"section":"Utredning och initial behandling","level":"Nivå 1","year_band":"light","competency":"Indikationer, ordination och inställning av högflödesyrgasgrimma (HFNC)","descriptors":["Utb Klinisk tjänstgöring, teoretisk genomgång, tjänstgöring på IVA","Bed DOPS"]},{"section":"Utredning och initial behandling","level":"Nivå 2","year_band":"yellow","competency":"Indikationer, ordination och inställning av noninvasiv ventilation (CPAP och BiPAP)","descriptors":["Utb Sidotjänstgöring prehospitalt, IVA, IMA, klinisk tjänstgöring","Bed DOPS"]},{"section":"Utredning och initial behandling","level":"Nivå 2","year_band":"yellow","competency":"Sanering av kemikalier och radioaktivt material","descriptors":["Utb teoretisk genomgång, lokal saneringsutbildning","Bed DOPS, handledarsamtal"]},{"section":"Utredning och initial behandling","level":"Nivå 1","year_band":"light","competency":"Indikationer för och insättning av urinkateter","descriptors":["Klinisk tjänstgöring","Bed Klinisk observation, DOPS"]},{"section":"Utredning och initial behandling","level":"Nivå 2","year_band":"yellow","competency":"Indikationer för och insättning av suprapubiskateter","descriptors":["Utb teoretisk genomgång, modellträning, klinisk tjänstgöring","Bed DOPS"]},{"section":"Disposition","level":"Nivå 1","year_band":"light","competency":"Besluta om rätt vårdnivå samt ordinera intervall av kliniska kontroller","descriptors":["Utb klinisk tjänstgöring","Bed CBD, journalgenomgång"]},{"section":"Disposition","level":"Nivå 2","year_band":"yellow","competency":"Säkerställa ett patientsäkert övertag till slutenvården","descriptors":["Utb klinisk tjänstgöring","Bed CBD, journalgenomgång"]},{"section":"Kommunikation","level":"Nivå 1","year_band":"light","competency":"Kommunicera med SSK och USK avseende närmsta planen och prioritera mellan åtgärder","descriptors":["Utb klinisk tjänstgöring","Bed 360 graders bedömning, muntlig och skriftlig feedback från medarbetare"]},{"section":"Kommunikation","level":"Nivå 2","year_band":"yellow","competency":"Koordinera och integrera flera team i ett då olika specialiteter samarbetar runt patienten. Prioritera mellan olika aktiviteter och åtgärder som de olika konsultteamen tillhandahåller (t.ex ABC-resuscitering före ortopediska procedurer)","descriptors":["Utb klinisk tjänstgöring, internutbildning","Bed OBS under larm, 360 graders bedömning, muntlig och skriftlig feedback från medarbetare inkl konsulter"]},{"section":"Kommunikation","level":"Nivå 3","year_band":"dark","competency":"Använda flexibla kommunikationsstrategier för att lösa konfliktsituationer med konsulter samtidigt som patientens bästa prioriteras","descriptors":["Utb klinisk tjänstgöring, kurs i kommunikationsmetoder","Bed handledardiskussion, 360 graders bedömning"]},{"section":"Kommunikation","level":"Nivå 4","year_band":"dark","competency":"Leda arbetet på larmrummet med flera konsulter och i kaotiska situationer; fungera som teamleader och backa upp yngre ST/AT/vik; använda UL vid behov","descriptors":["Utb handledarkurs, teamledarutbildning","Bed 360 graders bedömning, muntlig och skriftlig feedback från medarbetare"]},{"section":"Kommunikation","level":"Nivå 3","year_band":"dark","competency":"Inse när fler resurser behövs och använda dessa på ett adekvat sätt, samtidigt undvika överanvändning av resurser och konsulter","descriptors":["Utb klinisk tjänstgöring, handledarkurs","Bed handledardiskussion, 360 graders bedömning"]},{"section":"Kommunikation","level":"Nivå 4","year_band":"dark","competency":"Leda defusing efter svåra fall samt initiera debriefing och använda analysen för att vidareutveckla det akuta omhändertagandet framöver","descriptors":["Utb klinisk tjänstgöring, instruktionshandledning","Bed muntlig och skriftlig feedback från teammedlemmar efter defusing/debriefing"]},{"section":"Övrigt","level":"Nivå 1","year_band":"light","competency":"Tolka den akuta situationen och patientens nuvarande tillstånd tillsammans med patientens grundsjukdomar och livskvalitet. Ta hänsyn till, och ompröva, tidigare beslut om HLR och intensivvård utifrån den information som finns att tillgå","descriptors":["Utb etikutbildning, klinisk tjänstgöring och instruktions-/handledningssamtal","Bed handledardiskussion, CBD"]},{"section":"Övrigt","level":"Nivå 2","year_band":"yellow","competency":"Inse när vidare intervention och utredning är meningslös och inte till gagn för patienten","descriptors":["Utb Etikutbildning","Bed instruktionshandledning, klinisk observation, handledarsamtal"]},{"section":"Övrigt","level":"Nivå 3","year_band":"dark","competency":"Analysera och fatta svåra etiska beslut i komplicerade och utmanande kliniska situationer på ett effektivt sätt","descriptors":["Utb kommunikationskurs, etikkurs","Bed Klinisk observation, handledarsamtal, DOPS"]},{"section":"Övrigt","level":"Nivå 4","year_band":"dark","competency":"Skapa alternativa behandlingsplaner när patienten har övertygelser som talar emot vald behandling (t.ex. vägrar blodtransfusion)","descriptors":["Utb Klinisk tjänstgöring","Bed CBD"]}];
+    const DATA = [
+      {"section":"Anamnes och status","level":"Nivå 1","year_band":"light","competency":"Genomföra en systematisk undersökning för att finna ledtrådar som leder till igenkännande av syndrom eller skador","descriptors":["Utb: Internutbildning, lokal HLR-utbildning årligen","Bed: DT 1-4 LF, klinisk observation"]},
+      {"section":"Anamnes och status","level":"Nivå 2","year_band":"yellow","competency":"Använda resurser som krävs för att kunna initialt handlägga/stabilisera patienten, t.ex ringa vårdboende, patientansvarig läkare, vittnen eller anhöriga","descriptors":["Utb: Klinisk tjänstgöring","Bed: Handledarsamtal"]},
+      {"section":"Anamnes och status","level":"Nivå 3","year_band":"dark","competency":"Kunna värdera när resuscitering ska avbrytas (pga futilitet, etiska grunder osv)","descriptors":[]},
+
+      {"section":"Övrig datainsamling inklusive prov","level":"Nivå 2","year_band":"yellow","competency":"Se över nytta, risk, kontraindikationer och andra alternativ till ett diagnostiskt test eller procedur","descriptors":["Utb: Regional internutbildning, klinisk tjänstgöring, sidotjänstgöring IVA och anestesi, sidotjänstgöring pediatrik","Bed: Mini-CEX, handledarsamtal"]},
+      {"section":"Övrig datainsamling inklusive prov","level":"Nivå 3","year_band":"dark","competency":"Förstå begränsningar med tester, inklusive implikationer av falskt positiva och falskt negativa svar för sannolikheten för en diagnos efter provsvaret (post-test probability)","descriptors":["Utb: Regional internutbildning, handledarsamtal","Bed: handledarsamtal, CBD"]},
+      {"section":"Övrig datainsamling inklusive prov","level":"Nivå 4","year_band":"dark","competency":"Känna igen kunskapsbegränsningar i ovanliga och komplicerade kliniska situationer; skapa och implementera en plan för den bästa möjliga patientvården detta till trots","descriptors":["Utb: Klinisk tjänstgöring, handledarsamtal, egen reflektion och inläsning","Bed: handledarsamtal, CBD"]},
+      {"section":"Övrig datainsamling inklusive prov","level":"Nivå 2","year_band":"yellow","competency":"Översiktlig tolkning av trauma-CT","descriptors":["Utb: Klinisk tjänstgöring, självstudier, handledarsamtal, ev frivillig sidotjänstgöring på röntgen","Bed: Handledarsamtal, DOPS"]},
+      {"section":"Övrig datainsamling inklusive prov","level":"Nivå 2","year_band":"yellow","competency":"Bedöma volymstatus med hjälp av olika undersökningsmodaliteter","descriptors":["Utb: Internutbildning, UL-kurs","Bed: DT 1, DT 2 UL, medsittning"]},
+      {"section":"Övrig datainsamling inklusive prov","level":"Nivå 3","year_band":"dark","competency":"Utföra och bedöma UL-fynd vid chock UNS","descriptors":["Utb: Internutbildning, UL-kurs","Bed: DT 1, DT 2 UL, medsittning"]},
+
+      {"section":"Differentialdiagnostik och sannolikhetsbedömning","level":"Nivå 1","year_band":"light","competency":"Upprätta en lista med differentialdiagnostik och rangordna denna, samt ta med diagnoser med störst potential för morbiditet eller mortalitet","descriptors":["Utb: Internutbildning, klinisk tjänstgöring","Bed: Klinisk observation, handledarsamtal, CBD"]},
+      {"section":"Differentialdiagnostik och sannolikhetsbedömning","level":"Nivå 2","year_band":"yellow","competency":"Använda tillgänglig information för föra resonemang runt sannolikhetsbedömning för olika tillstånd samt tröskel för vidare utredning och/eller behandling","descriptors":["Utb: Regional internutbildning, klinisk tjänstgöring","Bed: Klinisk observation, handledarsamtal, CBD, LF DT 1-5, DF DT 1, 2, 4"]},
+      {"section":"Differentialdiagnostik och sannolikhetsbedömning","level":"Nivå 3","year_band":"dark","competency":"Modifiera differentialdiagnostiken och utrednings-/ behandlingsplan när ny information tillkommer eller som respons på förändringar hos patienten över tid","descriptors":["Utb: Klinisk tjänstgöring","Bed: Handledarsamtal, observation under arbete"]},
+      {"section":"Differentialdiagnostik och sannolikhetsbedömning","level":"Nivå 2","year_band":"yellow","competency":"Känna igen toxidrom och handläggning av akut intoxikerade patienter","descriptors":["Utb: Regional internutbildning, klinisk tjänstgöring","Bed: Klinisk observation, handledarsamtal, LF DT 1 & 4"]},
+
+      {"section":"Utredning och initial behandling","level":"Nivå 1","year_band":"light","competency":"Agera på alarmerande fynd i status och påbörja behandling av dessa oavsett genes (t.ex syrgas vid hypoxi) trots diagnostisk osäkerhet","descriptors":["Utb: Internutbildning","Bed: Larmfall, DT 1-5, Mini-CEX"]},
+      {"section":"Utredning och initial behandling","level":"Nivå 2","year_band":"yellow","competency":"Ordinera adekvat medicinering och doser för mindre vanliga akuta åkommor samt ta hänsyn till patientens vikt, ålder, njurfunktion. Överväga och förutse potentiella biverkningar","descriptors":["Utb: Internutbildning, klinisk tjänstgöring","Bed: Klinisk observation"]},
+      {"section":"Utredning och initial behandling","level":"Nivå 3","year_band":"dark","competency":"Planera för förutsett kliniskt förlopp och ha en plan om initiala åtgärder inte hjälper","descriptors":["Utb: Handledarsamtal","Bed: CBD, Mini-CEX"]},
+      {"section":"Utredning och initial behandling","level":"Nivå 4","year_band":"dark","competency":"Frångå sedvanlig behandling om denna inte finns tillgänglig, t.ex överväga trombolys för STEMI om akut coronarangio inte möjlig","descriptors":["Utb: Scenarioövningar","Bed: Handledarsamtal"]},
+      {"section":"Utredning och initial behandling","level":"Nivå 2","year_band":"yellow","competency":"Utföra nödvändiga procedurer, förbereda sig för att undvika potentiella komplikationer, ha en plan B och känna igen resultatet som förväntas eller komplikationer som kan uppstå som resultat av proceduren","descriptors":["Utb: Regional internutbildning, klinisk tjänstgöring, sidotjänstgöring anestesi och IVA, luftvägskurs","Bed: klinisk observation, DOPS, DT 2 färdigheter"]},
+      {"section":"Utredning och initial behandling","level":"Nivå 3","year_band":"dark","competency":"Kunna göra nödvändiga procedurer på alla patienter, inklusive de med utmanande drag, som svår identifierbara anatomiska landmärken, väldigt unga eller väldigt gamla eller med komorbiditeter","descriptors":["Utb: klinisk tjänstgöring, sidotjänstgöring anestesi och IVA, pediatrik","Bed: CBD, DOPS, handledarsamtal"]},
+      {"section":"Utredning och initial behandling","level":"Nivå 4","year_band":"dark","competency":"Kunna indikationer för och genomförandet av lateral kantotomi och inferior kantolys","descriptors":["Utb: Internutbildning, mental simulering, teoretisk utbildning","Bed: handledarsamtal, modellträning med feedback"]},
+      {"section":"Utredning och initial behandling","level":"Nivå 1","year_band":"light","competency":"Indikationer, doser och administrationsvägar för syrgasbehandling","descriptors":["Utb: Klinisk tjänstgöring, sidotjänstgöring pediatrik","Bed: Klinisk observation, handledarsamtal"]},
+      {"section":"Utredning och initial behandling","level":"Nivå 2","year_band":"yellow","competency":"Indikationer och doser för Adrenalin intramuskulärt och via nebulisator till vuxna och barn; Initial vätskebehandling vid chock","descriptors":["Utb: Klinisk tjänstgöring, sidotjänstgöring pediatrik","Bed: Klinisk observation, handledarsamtal"]},
+      {"section":"Utredning och initial behandling","level":"Nivå 3","year_band":"dark","competency":"Indikationer och doser för salbutamol via nebulisator till vuxna och barn","descriptors":["Utb: Regional internutbildning, klinisk tjänstgöring, sidotjänstgöring anestesi och IVA","Bed: Klinisk observation, handledarsamtal, medsittning"]},
+      {"section":"Utredning och initial behandling","level":"Nivå 4","year_band":"dark","competency":"Inotrop behandling vid chock","descriptors":[]},
+      {"section":"Utredning och initial behandling","level":"Nivå 1","year_band":"light","competency":"Indikationer och doser av glukos intravenöst","descriptors":["Utb: Internutbildning, handledarsamtal","Bed: Klinisk observation, CBD"]},
+      {"section":"Utredning och initial behandling","level":"Nivå 2","year_band":"yellow","competency":"Indikationer, doser och administreringsvägar för Glukagon; Indikationer och doser av Tribonat eller bikarbonat","descriptors":["Utb: Internutbildning, handledarsamtal","Bed: Klinisk observation, CBD"]},
+      {"section":"Utredning och initial behandling","level":"Nivå 1","year_band":"light","competency":"Elkonvertera instabil patient","descriptors":["Utb: Klinisk tjänstgöring","Bed: DOPS"]},
+      {"section":"Utredning och initial behandling","level":"Nivå 2","year_band":"yellow","competency":"Genomföra extern pacing","descriptors":["Utb: Klinisk tjänstgöring","Bed: DOPS"]},
+      {"section":"Utredning och initial behandling","level":"Nivå 3","year_band":"dark","competency":"CVK inläggning och hantering av CVK och PAC","descriptors":["Utb: Regional internutbildning, klinisk tjänstgöring, sidotjänstgöring anestesi och IVA, klinisk tjänstgöring","Bed: klinisk observation, DOPS, DT 2 färdigheter"]},
+      {"section":"Utredning och initial behandling","level":"Nivå 4","year_band":"dark","competency":"Indikationer och utförande av perikardiocentes","descriptors":["Utb: mental simulering, teoretisk genomgång","Bed: Handledarsamtal"]},
+      {"section":"Utredning och initial behandling","level":"Nivå 1","year_band":"light","competency":"Indikationer, ordination och inställning av högflödesyrgasgrimma (HFNC)","descriptors":["Utb: Klinisk tjänstgöring, teoretisk genomgång, tjänstgöring på IVA","Bed: DOPS"]},
+      {"section":"Utredning och initial behandling","level":"Nivå 2","year_band":"yellow","competency":"Indikationer, ordination och inställning av Noninvasiv ventilation (CPAP och BiPAP)","descriptors":["Utb: Sidotjänstgöring prehospitalt, IVA, IMA, klinisk tjänstgöring","Bed: DOPS"]},
+      {"section":"Utredning och initial behandling","level":"Nivå 2","year_band":"yellow","competency":"Sanering av kemikalier och radioaktivt material","descriptors":["Utb: teoretisk genomgång, lokal saneringsutbildning","Bed: DOPS, handledarsamtal"]},
+      {"section":"Utredning och initial behandling","level":"Nivå 1","year_band":"light","competency":"Indikationer för och insättning av urinkateter","descriptors":["Utb: genomgång med USK, klinisk tjänstgöring","Bed: Klinisk observation, DOPS"]},
+      {"section":"Utredning och initial behandling","level":"Nivå 2","year_band":"yellow","competency":"Indikationer för och insättning av suprapubiskateter","descriptors":["Utb: teoretisk genomgång, modellträning med USK, klinisk tjänstgöring","Bed: DOPS"]},
+
+      {"section":"Disposition","level":"Nivå 1","year_band":"light","competency":"Besluta om rätt vårdnivå samt ordinera intervall av kliniska kontroller","descriptors":["Utb: klinisk tjänstgöring","Bed: CBD, journalgenomgång"]},
+      {"section":"Disposition","level":"Nivå 2","year_band":"yellow","competency":"Säkerställa ett patientsäkert övertag till slutenvården","descriptors":["Utb: klinisk tjänstgöring","Bed: CBD, journalgenomgång"]},
+
+      {"section":"Kommunikation","level":"Nivå 1","year_band":"light","competency":"Kommunicera med ssk och usk avseende närmsta planen och prioritera mellan åtgärder","descriptors":["Utb: klinisk tjänstgöring","Bed: 360 graders bed, muntlig och skriftlig feedback från medarbetare"]},
+      {"section":"Kommunikation","level":"Nivå 2","year_band":"yellow","competency":"Koordinera och integrera flera team i ett då olika specialiteter samarbetar runt patienten. Prioritera mellan olika aktiviteter och åtgärder som de olika konsultteamen tillhandahåller (t.ex ABC resuscitering före ortopediska procedurer)","descriptors":["Utb: klinisk tjänstgöring, internutbildning","Bed: OBS under larm, 360 graders bed, muntlig och skriftlig feedback från medarbetare inkl konsulter"]},
+      {"section":"Kommunikation","level":"Nivå 3","year_band":"dark","competency":"Använda flexibla kommunikationsstrategier för att lösa konfliktsituationer med konsulter samtidigt som patientens bästa prioriteras","descriptors":["Utb: klinisk tjänstgöring, kurs i kommunikationsmetoder","Bed: handleraddiskussion, 360 graders bed"]},
+      {"section":"Kommunikation","level":"Nivå 4","year_band":"dark","competency":"Leda arbetet på larmrummet med flera konsulter och i kaotiska situationer, fungera som teamleader och backa upp yngre ST/AT/vik UL","descriptors":["Utb: handledarkurs, teamledarutbildning","Bed: 360 graders bed, muntlig och skriftlig feedback från medarbetare"]},
+      {"section":"Kommunikation","level":"Nivå 1","year_band":"light","competency":"Inse när fler resurser behövs och använda dessa på ett adekvat sätt, samtidigt undvika överanvändning av resurser och konsulter utan att ha identifierat ett problem","descriptors":["Utb: klinisk tjänstgöring, handledarkurs","Bed: handleraddiskussion, 360 graders bed"]},
+      {"section":"Kommunikation","level":"Nivå 4","year_band":"dark","competency":"Leda defusing efter svåra fall samt initiera debriefing och använda analysen för att vidareutveckla det akuta omhändertagandet framöver","descriptors":["Utb: klinisk tjänstgöring, instruktionshandledning","Bed: muntlig och skriftlig feedback från teammedlemmar efter defusing/ debriefing"]},
+
+      {"section":"Övrigt","level":"Nivå 1","year_band":"light","competency":"Tolka den akuta situationen och patientens nuvarande tillstånd tillsammans med patientens grundsjukdomar och livskvalitet. Ta hänsyn till, och ompröva, tidigare beslut om HLR och intensivvård utifrån den information som finns att tillgå","descriptors":["Utb: etikutbildning, klinisk tjänstgöring och instruktions-handledningssamtal","Bed: handleraddiskussion, CBD"]},
+      {"section":"Övrigt","level":"Nivå 2","year_band":"yellow","competency":"Inse när vidare intervention och utredning är meningslös och inte till gagn för patienten","descriptors":["Utb: Etikutbildning","Bed: instruktionshandledning, klinisk observation, handledarsamtal"]},
+      {"section":"Övrigt","level":"Nivå 3","year_band":"dark","competency":"Analysera och fatta svåra etiska beslut i komplicerade och utmanande kliniska situationer på ett effektivt sätt","descriptors":["Utb: kommunikationskurs, etikkurs","Bed: Klinisk observation, handledarsamtal, DOPS"]},
+      {"section":"Övrigt","level":"Nivå 4","year_band":"dark","competency":"Skapa alternativa behandlingsplaner när patienten har övertygelser som talar emot vald behandling (t.ex. vägrar blodtransfusion)","descriptors":["Utb: Klinisk tjänstgöring","Bed: CBD"]}
+    ];
 
     const yearOrder = { light: 1, yellow: 2, dark: 3 };
     const yearLabel = { light: "År 1–2", yellow: "År 3–4", dark: "År 5" };
-
     const content = document.getElementById("content");
     const btnLight = document.getElementById("btnLight");
     const btnYellow = document.getElementById("btnYellow");
@@ -249,15 +252,11 @@ body{
     }
 
     function esc(s) {
-      return String(s ?? "")
-        .replaceAll("&","&amp;")
-        .replaceAll("<","&lt;")
-        .replaceAll(">","&gt;");
+      return String(s ?? "").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");
     }
 
     function render(maxYear) {
       const filtered = DATA.filter(r => yearOrder[r.year_band] <= maxYear);
-
       const bySection = {};
       filtered.forEach(r => {
         (bySection[r.section] ??= []).push(r);
@@ -268,30 +267,16 @@ body{
 
       let out = "";
       for (const section of sections) {
-        const items = bySection[section]
-          .slice()
-          .sort((a,b) =>
-            (levelRank[a.level] - levelRank[b.level]) ||
-            (yearOrder[a.year_band] - yearOrder[b.year_band]) ||
-            a.competency.localeCompare(b.competency,"sv")
-          );
+        const items = bySection[section].slice().sort((a,b) =>
+          (levelRank[a.level] - levelRank[b.level]) ||
+          (yearOrder[a.year_band] - yearOrder[b.year_band]) ||
+          a.competency.localeCompare(b.competency,"sv")
+        );
 
-        out += `<div class="block epa-section">`;
-        out += `<div class="block-title">${esc(section)}</div>`;
-
+        out += `<div class="block"><div class="block-title">${esc(section)}</div>`;
         for (const item of items) {
-          const dotColor =
-            item.year_band === "light" ? "#d7e3bc" :
-            item.year_band === "yellow" ? "#ffd400" :
-            "#00b050";
-
-          out += `<div class="epa-item">`;
-          out += `  <div class="epa-item-head">`;
-          out += `    <div class="epa-competency"><span class="dot" style="background:${dotColor};margin-right:8px"></span>${esc(item.competency)}</div>`;
-          out += `    <div class="badge">${esc(item.level)}</div>`;
-          out += `  </div>`;
-          out += `  <div class="epa-meta">${esc(yearLabel[item.year_band])}</div>`;
-
+          const dotColor = item.year_band === "light" ? "#d7e3bc" : item.year_band === "yellow" ? "#ffd400" : "#00b050";
+          out += `<div class="epa-item"><div class="epa-item-head"><div class="epa-competency"><span class="dot" style="background:${dotColor};margin-right:8px"></span>${esc(item.competency)}</div><div class="badge">${esc(item.level)}</div></div><div class="epa-meta">${esc(yearLabel[item.year_band])}</div>`;
           if (item.descriptors && item.descriptors.length) {
             out += `<ul class="desc">`;
             item.descriptors.forEach(d => {
@@ -301,13 +286,10 @@ body{
             });
             out += `</ul>`;
           }
-
           out += `</div>`;
         }
-
         out += `</div>`;
       }
-
       content.innerHTML = out || `<div class="block"><div class="block-title">Inga kompetenser matchar filtret.</div></div>`;
     }
 
@@ -315,7 +297,6 @@ body{
     btnYellow.addEventListener("click", () => { setActive(btnYellow); render(2); });
     btnDark.addEventListener("click", () => { setActive(btnDark); render(3); });
 
-    // initial view
     setActive(btnLight);
     render(1);
   </script>
