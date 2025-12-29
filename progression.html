@@ -1,0 +1,534 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kompetensflöde – ST-Akutsjukvård</title>
+  <style>
+    :root{
+      --epa-teal-1:#0ea5a8;
+      --epa-teal-2:#0b7285;
+      --bg:#f6f8fb;
+      --card:#ffffff;
+      --text:#0f172a;
+      --muted:#475569;
+      --border:#e2e8f0;
+      --shadow: 0 10px 30px rgba(2, 6, 23, .08);
+      --radius:16px;
+      --max: 1400px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background:var(--bg); color:var(--text); line-height:1.6;
+    }
+    
+    header{
+      background: linear-gradient(90deg, var(--epa-teal-2), var(--epa-teal-1));
+      color:white;
+      padding:24px 18px;
+      border-bottom: 1px solid rgba(255,255,255,.18);
+    }
+    header .wrap{max-width:var(--max); margin:0 auto; padding:0 18px}
+    h1{margin:0; font-size: clamp(24px, 3vw, 32px); letter-spacing:.2px; font-weight:600}
+
+    /* Full-width image section inside details */
+    .viewport-wrapper{
+      width:100%;
+      margin:0;
+      padding:0;
+      background:#ffffff;
+    }
+
+    .viewport{
+      height: 65vh;
+      position:relative;
+      overflow:hidden;
+      touch-action:none;
+      user-select:none;
+      cursor: grab;
+      width:100%;
+      background:#ffffff;
+    }
+    .viewport:active{cursor:grabbing}
+    .stage{
+      position:absolute;
+      left:0; top:0;
+      transform-origin: 0 0;
+      will-change: transform;
+    }
+    .stage img{
+      display:block;
+      max-width:none;
+      -webkit-user-drag:none;
+      pointer-events:none;
+    }
+    .badge{
+      position:absolute;
+      right:12px; bottom:12px;
+      background: rgba(15, 23, 42, .72);
+      color: rgba(255,255,255,.92);
+      border: 1px solid rgba(255,255,255,.16);
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:12px;
+      backdrop-filter: blur(8px);
+    }
+
+    /* Text sections */
+    main{max-width:var(--max); margin:18px auto 44px; padding:0 18px; display:grid; gap:16px}
+    
+    .card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .card-h{
+      padding:14px 16px;
+      border-bottom:1px solid var(--border);
+      background:#f9fafc;
+    }
+    .card-h h2{margin:0; font-size:16px; font-weight:600}
+
+    /* Textdel */
+    .content{padding: 0}
+    
+    .group{margin-bottom:24px}
+    .group:last-child{margin-bottom:0}
+    
+    .group-title{
+      font-size:13px;
+      font-weight:700;
+      color:var(--epa-teal-2);
+      text-transform:uppercase;
+      letter-spacing:.5px;
+      padding:12px 16px 8px 16px;
+      margin:0;
+      margin-top:8px;
+    }
+    .group:first-child .group-title{margin-top:0}
+    
+    details{
+      border-bottom:1px solid var(--border);
+      padding: 12px 16px;
+      background:#fff;
+    }
+    .group details:first-of-type{
+      border-top:1px solid var(--border);
+    }
+    details:last-of-type{border-bottom:none}
+    
+    summary{
+      cursor:pointer;
+      font-weight:600;
+      color: var(--text);
+      list-style:none;
+      padding:4px 0;
+      user-select:none;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+    }
+    
+    summary::after{
+      content:'▼';
+      display:inline-block;
+      font-size:11px;
+      transition:transform .2s ease;
+      flex-shrink:0;
+    }
+    
+    details[open] summary::after{
+      transform:rotate(180deg);
+    }
+    
+    summary:hover{color:var(--epa-teal-1)}
+    
+    details[open] summary{
+      color:var(--epa-teal-1);
+      margin-bottom:8px;
+    }
+    
+    .detail-content{
+      margin:0;
+      padding:0 0 0 0;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.6;
+    }
+    
+    .detail-content p{
+      margin:0 0 10px 0;
+    }
+    
+    .detail-content p:last-child{margin-bottom:0}
+    
+    .detail-content ul{
+      margin:8px 0 0 18px;
+      padding:0;
+    }
+    
+    .detail-content li{
+      margin:4px 0;
+    }
+    
+    /* Intro section - no expand/collapse */
+    .intro-section{
+      padding: 12px 16px;
+      border-bottom:1px solid var(--border);
+      background:#fff;
+    }
+    .intro-section h3{
+      margin:0 0 8px 0;
+      font-size:16px;
+      font-weight:600;
+      color:var(--text);
+    }
+    .intro-section .detail-content{
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.6;
+    }
+
+    /* Special styling for image details section */
+    details.image-details{
+      border:none;
+      padding:0;
+      background:transparent;
+      box-shadow:none;
+    }
+    details.image-details[open] summary{
+      margin-bottom:0;
+    }
+    details.image-details summary{
+      padding: 12px 16px;
+      background:#f9fafc;
+      border:1px solid var(--border);
+      border-bottom:none;
+      border-radius:var(--radius) var(--radius) 0 0;
+      margin:0;
+    }
+    details.image-details .viewport-wrapper{
+      border:1px solid var(--border);
+      border-top:none;
+      border-radius:0 0 var(--radius) var(--radius);
+      box-shadow:var(--shadow);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <h1>Kompetensflöde för ST-Akutsjukvård, Nusjukvården</h1>
+    </div>
+  </header>
+
+  <!-- Main content sections -->
+  <main>
+    <section class="card" aria-label="Beskrivning">
+      <div class="content">
+        
+        <!-- Introduktion - Always expanded, no toggle -->
+        <div class="intro-section">
+          <h3>Introduktion & Översikt</h3>
+          <div class="detail-content">
+            <p>Kompetensflödet beskriver den systematiska progressionen genom olika arbetspositioner för ST-läkare i akutsjukvård på NÄL. Positionerna är ordnade hierarkiskt från grundläggande kompetens till högsta ledarskapsposition, där varje steg tar hänsyn till Socialstyrelsens utbildningsplaner för Akutsjukvård 2015 och 2021 och tillsammans med andra aktiviteter uppfyller delar av delmål.</p>
+            <p>Det är viktigt att komma ihåg att progressionen inte alltid följer en strikt linjär väg utan kan anpassas efter individuell bakgrund, tidigare erfarenhet och personlig lämplighet. Alla positioner kräver att kompetenskraven uppfylls, men framgångsrikt arbete förutsätter även personlig mognad och lämplighet för rollen.</p>
+          </div>
+        </div>
+        
+      </div>
+    </section>
+
+    <!-- Image section in expandable details (after intro, unexpanded) -->
+    <details class="image-details">
+      <summary>Kompetensöversikt - Bild</summary>
+      <div class="viewport-wrapper" aria-label="Kompetensflöde bild">
+        <div id="viewport" class="viewport" role="application" aria-label="Interaktiv kompetensflödesbild">
+          <div id="stage" class="stage">
+            <img id="diagram" src="Kompetenstrappa.png" alt="Kompetensflöde diagram" />
+          </div>
+          <div id="badge" class="badge" aria-live="polite">100%</div>
+        </div>
+      </div>
+    </details>
+
+    <section class="card" aria-label="Positionsbeskrivningar">
+      <div class="content">
+
+        <!-- Grupp 1: Medicin -->
+        <div class="group">
+          <h3 class="group-title">Medicin</h3>
+          <details>
+            <summary>Medicin</summary>
+            <div class="detail-content">
+              <p><strong>Kompetenskrav:</strong> a2, a3, b1, b2, c1, c2, c3, c4 / STa4, STa7, STb1, STb2, STc1, STc2, STc3, STc4</p>
+              <p>Medicinpositionen utgör grundsteget på akutmottagningen där läkare under utbildning utvecklar sina första färdigheter inom akutsjukvård. Denna position kännetecknas av att läkaren alltid arbetar under nära handledning och stöd från mer erfarna kolleger, specifikt modulansvarig läkare, ledningsläkare eller medicinhusjour. Positionen är tänkt att erbjuda en trygg miljö för lärande där komplexa medicinska beslut kan diskuteras och vägleds av erfarna kollegor.</p>
+              <p>Läkaren som arbetar på medicinpositionen träffar framför allt patienter med akuta medicinska tillstånd som kräver initial bedömning och stabilisering. Patientgruppen inkluderar individer med kardiovaskulära problem såsom hjärtinfarkt, hjärtsvikt och arytmier, lungsjukdomar inklusive astma, KOL-exacerbationer och pneumoni, samt gastrointestinala akuta tillstånd. Neurologiska akuttillstånd som yrsel, stroke, epileptiska anfall och medvetandepåverkan är också vanligt förekommande. Endokrina kriser såsom hyperglykemier inkl ketoacidos, liksom infektionstillstånd och sepsis, utgör ytterligare viktiga delar av patientspektrumet.</p>
+              <p>Kliniken planerar vanligtvis för att läkare på medicinpositionen ska genomgå kursen "Medicinsk akutsjukvård", men detta är inte ett krav före positionsstart. Kursen fokuserar på handläggning av akuta sjukdomstillstånd vilket stärker den teoretiska och praktiska grunden för kliniskt arbete.</p>
+              <p>Denna position kopplas till grundläggande kompetenskrav och tränar färdigheter inom etiska överväganden (a2/STa4), vårdhygien och smittskydd (a3/STa7), kommunikation med patienter och närstående under akuta situationer (b1/STb1), samt sjukdomsförebyggande arbete (b2/STb2). Kliniskt utvecklas förmågan att identifiera livshotande tillstånd (c1/STc1), bedöma medicinsk angelägenhetsgrad och prioritera patienter (c2/STc2), värdera symtom utifrån differentialdiagnostiska kunskaper (c3/STc3), och tillämpa akut smärtbehandling (c4/STc4).</p>
+            </div>
+          </details>
+        </div>
+
+        <!-- Grupp 2: Kirurgi/Trauma -->
+        <div class="group">
+          <h3 class="group-title">Kirurgi/Trauma</h3>
+          <details>
+            <summary>Kirurgi/Trauma</summary>
+            <div class="detail-content">
+              <p><strong>Kompetenskrav:</strong> a1, a4, c1, c4, c5, c7, c8 / STa5, STa2, STc1, STc4, STc5, STc7, STc8</p>
+              <p>Kirurgi/Trauma-positionen kräver att läkaren har genomgått den obligatoriska ATLS-kursen (Advanced Trauma Life Support). Denna position innebär ansvar för traumapatienter och akuta kirurgiska tillstånd.</p>
+              <p>ATLS bygger på systematisk primär bedömning enligt ABCDE-principen och lär ut basal prioritering och triage av traumapatienter, sekundär bedömning och diagnostik, transportbedömning och strukturerad överrapportering (handover) till nästa vårdnivå. ATLS-kompetens är att se som en basal kunskapsnivå, dvs miniminivå för att kunna jobba på Kirurg/Traumaposition.</p>
+              <p>Patienter som kommer till kirurgi/trauma-positionen inkluderar multitraumapatienter, buktrauma med risk för inre blödningar, thoraxtrauma med pneumothorax eller hemothorax. Akuta kirurgiska tillstånd som appendicit, illeus, perforationer och divertikulit, njursten m.fl är också vanliga.</p>
+              <p>Positionen utvecklar ledarskap i vårdteam (a1/STa5), systematiskt patientsäkerhetsarbete (a4/STa2), identifiering och stabilisering av instabila vitalfunktioner (c1/STc1), hantering av trauma och olycksfall (c4/STc4), diagnostiska och terapeutiska färdigheter (c5/STc5), risk-nyttavärdering (c7/STc7), samt prehospital handläggning och koordinering av vård från skadeplats till sjukhus (c8/STc8).</p>
+            </div>
+          </details>
+        </div>
+
+        <!-- Grupp 3: Grönt team -->
+        <div class="group">
+          <h3 class="group-title">Grönt team</h3>
+          <details>
+            <summary>Grönt team dag</summary>
+            <div class="detail-content">
+              <p><strong>Kompetenskrav:</strong> b1, b3, c2, c6, c10, c11 / STb1, STb3, STc2, STc6, STc10, STc11</p>
+              <p>Grönt team-positionen fungerar som en mellanposition som kräver bred kompetens inom flera specialiteter/sökorsaker. Dagtid ska läkaren självständigt kunna handlägga en stor del av patienter som söker för medicinska, kirurgiska och ortopediska orsaker.</p>
+              <p>Denna position kräver utvecklad kommunikation med patienter och närstående (b1/STb1), läkemedelskunskap (b3/STb3), prioritering mellan vårdsökande (c2/STc2), kunskap om behandlingsriktlinjer och multidisciplinärt arbetssätt (c6/STc6), patientansvar och transport (c10/STc10), samt samverkan med samhällets resurser (c11/STc11).</p>
+            </div>
+          </details>
+
+          <details>
+            <summary>Grönt team kväll</summary>
+            <div class="detail-content">
+              <p><strong>Kompetenskrav:</strong> a2, b1, b3, c1, c2, c3, c4, c5, c6, c10, c11, c13 / STa4, STb1, STb3, STc1, STc2, STc3, STc4, STc5, STc6, STc10, STc11, STc13, STc14</p>
+              <p>Kvällstid ska läkaren vidare ha genomfört sidotjänstgöringar inom: gynekologi och obstetrik, pediatrik, ögon, samt öron-näsa-hals (ÖNH). Positionen innebär förmågan att kunna hantera patienter från alla kategorier och åldersgrupper, vilket kräver stor flexibilitet och bred medicinsk kunskap.</p>
+              <p>Kvällspositionen bygger på samma kompetenskrav som dagtid men med utökad patientgrupp och ökad självständighet. Sidotjänstgöringarna säkerställer bredare kompetens inom specialiserade områden som är vanligt förekommande på kvällstid.</p>
+            </div>
+          </details>
+        </div>
+
+        <!-- Grupp 4: Ortopedi -->
+        <div class="group">
+          <h3 class="group-title">Ortopedi</h3>
+          <details>
+            <summary>Ortoped kväll</summary>
+            <div class="detail-content">
+              <p><strong>Kompetenskrav:</strong> c3, c5, c13 / STc3, STc5, STc14</p>
+              <p>Ortoped kväll-positionen är en inledande ortopedisk position som karakteriseras av kontinuerlig handledning från senior akutläkare på torget, ortopedkollega eller stöd från ledningsläkare. Denna position kräver inte samma höga kompetensnivå som dagortoped och fungerar som en inkörsport till ortopedisk akutsjukvård. Läkaren arbetar under överinseende och kan få omedelbar konsultation vid komplicerade fall.</p>
+              <p>Positionen ger läkaren möjlighet att utveckla grundläggande ortopediska färdigheter i en relativt trygg miljö. Arbetet inkluderar hantering av frakturer, luxationer och mjukdelsskador under övervakning.</p>
+              <p>Denna position utvecklar differentialdiagnostiska färdigheter på grundläggande nivå inom ortopedi (c3/STc3), diagnostiska färdigheter med fokus på röntgenbildstolkning och fysisk undersökning av rörelseapparaten (c5/STc5), samt tillämpning av lagar och föreskrifter inklusive sjukskrivningsregler och rehabiliteringsplanering (c13/STc14).</p>
+            </div>
+          </details>
+
+          <details>
+            <summary>Ortoped dag</summary>
+            <div class="detail-content">
+              <p><strong>Kompetenskrav:</strong> a5, a6, c5, c8, c13 / STa3, STa1, STc5, STc10, STc7, STc14</p>
+              <p>Ortoped dag-positionen urskiljer sig från kvällspasset i framför allt självständighet. Denna position innebär att läkaren förväntas hantera en betydande del av patientflödet självständigt utan kontinuerligt stöd eller övervakning.</p>
+              <p><strong>Förutsättningar för ortoped dag:</strong></p>
+              <ul>
+                <li>Läkaren ska ha genomgått kursen "Akut ortopedi". Kursen fokuserar på evidensbaserad bedömning av olika behandlingsalternativ, bedömning och initial behandling av specifika traumafall.</li>
+                <li>Genomförd "randning" (sidotjänstgöring) på ortopeden.</li>
+                <li>Praktiska moment enligt "Checklista Ortopedi"</li>
+              </ul>
+              <p><strong>Praktiska moment:</strong> Reponera radiusfraktur, Reponera axelledsluxation, Reponera felställd fotled, Fingerbasblockad, Punktera knäled, Applicera Vista krage och 3-punktskorsett, Lägga FIC-blockad, Suturera, Sätta bäckenbälte, Ta distalstatus, Operationsanmälan, Reponera pigluxation, Sätta femursplint.</p>
+              <p><strong>Bör kunna handlägga:</strong> Axelkontusion, Höftfrakturer, Patellaluxation, Knädistorsion med riktigt knästatus, Öppna frakturer, Septisk artrit, Ortopedens uppdrag på traumalarm.</p>
+              <p>Positionen bygger på fördjupad medicinsk vetenskap (a5/STa3) med förståelse för ortopedisk patofysiologi, kännedom om hälso- och sjukvårdens organisation (a6/STa1), avancerade diagnostiska och terapeutiska färdigheter (c5/STc5), transport och säkerhetsbedömning (c8/STc10), risk-nyttavärdering (STc7), och tillämpning av lagar och föreskrifter (c13/STc14).</p>
+            </div>
+          </details>
+
+          <details>
+            <summary>Ortoped natt</summary>
+            <div class="detail-content">
+              <p><strong>Kompetenskrav:</strong> a5, a6, c5, c7, c8, c9, c12, c13 / STa3, STa1, STc5, STc7, STc10, STc9, STc12, STc14</p>
+              <p>Ortoped natt-positionen kräver ännu högre kompetens än ortoped dag eftersom läkaren arbetar med minimalt tillgängligt stöd under nattimmarna. Positionen innebär ett utökat ansvar som sträcker sig bortom akutmottagningen till att omfatta ansvar för den ortopediska vårdavdelningen. Detta innebär att läkaren måste ha övergripande kunskap om postoperativ vård, smärtkontroll, antikoagulantiabehandling m.fl.</p>
+              <p>Sekundärt till detta kan bedömningar på intensivvårdsavdelningen för patienter med ortopediska akuta tillstånd bli aktuella.</p>
+              <p>Kompetensen som krävs för ortoped natt bygger på alla tidigare ortopediska positioner men inkluderar även fördjupad förståelse för kritiskt sjuka och inkluderar bedömning av när akut kirurgi är nödvändig mitt i natten kontra vad som kan vänta till dagtid.</p>
+              <p>Nattposition kräver fördjupad medicinsk vetenskap (a5/STa3), organisationskunskap (a6/STa1), avancerade färdigheter (c5/STc5), risk-nyttavärdering (c7/STc7), transport och säkerhetsbedömning (c8/STc10), viss ledningsförmåga (c9/STc9), epidemiologisk förståelse (c12/STc12), samt juridisk kompetens (c13/STc14).</p>
+            </div>
+          </details>
+        </div>
+
+        <!-- Grupp 5: Ledning -->
+        <div class="group">
+          <h3 class="group-title">Ledning</h3>
+          <details>
+            <summary>Modulansvarig</summary>
+            <div class="detail-content">
+              <p><strong>Kompetenskrav:</strong> a1, b4, b5, c6, c9 / STa5, STa6, STb3, STb4, STc6, STc9, STc11</p>
+              <p>Modulansvarig-positionen, tidigare känd som akutöverläkare medicin, utgör en övergång från klinisk till ledande roll och uppnås vanligtvis under eller efter det tredje utbildningsåret. Denna position kombinerar avancerad klinisk kompetens med pedagogiskt och administrativt ansvar, vilket gör den till en nyckelposition för utbildning och kvalitetssäkring på akutmottagningen.</p>
+              <p>Modulansvarig har ett övergripande ansvar för medicintorget och fungerar som handledare och mentor för juniora läkare.</p>
+              <p>Kliniskt innebär positionen ansvar för komplicerade medicinska patienter som kräver avancerad diagnostik och behandling. Modulansvarig konsulteras ofta av andra läkare för komplexa fall och förväntas kunna handleda i merparten av situationer, men kan vid behov stämma av med ledningsläkare.</p>
+              <p>Denna position utvecklar utvecklat ledarskap och pedagogik (a1/STa5), lärande och undervisning (STa6), försäkringsmedicin (b4/STb3), palliativ vård (b5/STb4), behandlingsriktlinjer och multidisciplinärt arbetssätt (c6/STc6), ledning av akutenhet (c9/STc9), samt samverkan med samhällets resurser (STc11).</p>
+            </div>
+          </details>
+
+          <details>
+            <summary>Ledningsläkare</summary>
+            <div class="detail-content">
+              <p><strong>Kompetenskrav:</strong> a1-a6, b1-b5, c1-c13 / STa1-STa7, STb1-STb4, STc1-STc14</p>
+              <p>Ledningsläkare-positionen representerar den högsta kompetens- och ansvarsposten på akutmottagningen och kräver specialist- eller mycket avancerad ST-kompetens. Denna roll kombinerar klinisk expertis med operativt ledarskap och strategisk planering för hela akutmottagningens verksamhet.</p>
+              <p><strong>Schema och operativt ansvar:</strong> Ledningsläkarens centrala ansvar inkluderar att leda dagliga morgonmöten klockan 08:00 måndag till fredag, där läkarbemanningen ses över och arbetsuppgifter samt ansvar fördelas. Detta kräver överblick över personalresurser, kompetenser och patientflöden för att optimera vårdkvalitet och effektivitet. En kritisk funktion är att hantera akut sjukfrånvaro och omorganisera bemanningen för att upprätthålla patientsäkerheten. Ledningsläkaren måste ha djup förståelse för olika läkares kompetenser och komfortområden för att göra lämpliga omfördelningar.</p>
+              <p>Fördelning av läkare till larm och utnämning av medicinsk ledare för specifika larm kräver snabb bedömning av larmens karaktär och matchning med rätt kompetens. Ledningsläkaren måste ha omfattande kunskap om olika larmsituationer och deras specifika krav.</p>
+              <p><strong>Utbildning:</strong> Ledningsläkaren förväntas engagera sig i utbildningsaktiviteter, säkerställa att utbildningsmål uppfylls och ge konstruktiv feedback på yngre kollegors utveckling i enlighet för fokusveckan. Handledning av både ordinarie läkare och modulansvariga kräver högt utvecklade pedagogiska färdigheter och förmåga att ge konstruktiv feedback på alla kompetensnivåer. Ledningsläkaren fungerar som mentor och utvecklare av framtida specialister.</p>
+              <p><strong>Konsult:</strong> Som primär kontakt för externa frågor från andra enheter fungerar ledningsläkaren även som navcentrum för kommunikation och koordinering mellan olika vårdinstanser. Ambulansfrågor och EKG-tolkning är dagliga arbetsuppgifter som kräver snabb och säker bedömning. Ledningsläkaren måste kunna tolka komplicerade EKG-fynd och ge råd om lämplig handläggning både prehospitalt och på sjukhuset.</p>
+              <p><strong>Stöd:</strong> Bedömning av komplicerade fall och rätt vårdnivå kräver omfattande klinisk erfarenhet och förmåga att se helhetsbilden av patientens tillstånd. Detta inkluderar beslut om när patienter ska vårdas lokalt kontra transfereras till högre vårdnivå.</p>
+              <p><strong>Flödesoptimering:</strong> Överblick över patientflöden och ledtider är nödvändigt för att identifiera flaskhalsar och optimera vårdprocesser. Ledningsläkaren måste kontinuerligt monitorera akutmottagningens prestanda och vidta åtgärder vid överbelastning. Omfördelning av resurser och personal vid hög belastning kräver strategiskt tänkande och förmåga att prioritera under stress. Detta inkluderar aktivering av beredskapsplaner och koordinering med sjukhusets ledning.</p>
+              <p>Ledningsläkarpositionen kräver alla kompetenskrav på expertlnivå från båda utbildningsplanerna. Denna holistiska kompetens är nödvändig för att hantera det breda ansvarsområdet och fungera som organisationens medicinska ledare på akutmottagningen.</p>
+            </div>
+          </details>
+        </div>
+        
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (function(){
+      const viewport = document.getElementById('viewport');
+      const stage = document.getElementById('stage');
+      const img = document.getElementById('diagram');
+      const badge = document.getElementById('badge');
+
+      let scale = 1;
+      let tx = 0, ty = 0;
+
+      let dragging = false;
+      let lastX = 0, lastY = 0;
+
+      const MIN = 0.25, MAX = 5;
+
+      const pointers = new Map();
+      let pinchStartDist = 0;
+      let pinchStartScale = 1;
+      let pinchStartMid = null;
+      let pinchStartTx = 0, pinchStartTy = 0;
+
+      function setTransform(){
+        stage.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`;
+        badge.textContent = `${Math.round(scale*100)}%`;
+      }
+
+      function clamp(v, a, b){ return Math.max(a, Math.min(b, v)); }
+
+      function zoomAt(newScale, clientX, clientY){
+        newScale = clamp(newScale, MIN, MAX);
+        const rect = viewport.getBoundingClientRect();
+        const x = clientX - rect.left;
+        const y = clientY - rect.top;
+
+        const wx = (x - tx) / scale;
+        const wy = (y - ty) / scale;
+
+        scale = newScale;
+
+        tx = x - wx * scale;
+        ty = y - wy * scale;
+
+        setTransform();
+      }
+
+      function resetToFit(){
+        const rect = viewport.getBoundingClientRect();
+        const iw = img.naturalWidth || 1;
+        const ih = img.naturalHeight || 1;
+
+        const sx = rect.width / iw;
+        const sy = rect.height / ih;
+        scale = clamp(Math.min(sx, sy), MIN, MAX);
+
+        tx = (rect.width - iw * scale) / 2;
+        ty = (rect.height - ih * scale) / 2;
+        setTransform();
+      }
+
+      img.addEventListener('load', resetToFit);
+      window.addEventListener('resize', resetToFit);
+
+      viewport.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        const delta = -e.deltaY;
+        const factor = delta > 0 ? 1.08 : 0.92;
+        zoomAt(scale * factor, e.clientX, e.clientY);
+      }, { passive: false });
+
+      viewport.addEventListener('pointerdown', (e) => {
+        viewport.setPointerCapture(e.pointerId);
+        pointers.set(e.pointerId, {x:e.clientX, y:e.clientY});
+
+        if (pointers.size === 1){
+          dragging = true;
+          lastX = e.clientX; lastY = e.clientY;
+        }
+
+        if (pointers.size === 2){
+          const arr = Array.from(pointers.values());
+          const dx = arr[0].x - arr[1].x;
+          const dy = arr[0].y - arr[1].y;
+          pinchStartDist = Math.hypot(dx, dy);
+          pinchStartScale = scale;
+          pinchStartTx = tx; pinchStartTy = ty;
+          pinchStartMid = { x:(arr[0].x + arr[1].x)/2, y:(arr[0].y + arr[1].y)/2 };
+        }
+      });
+
+      viewport.addEventListener('pointermove', (e) => {
+        if (!pointers.has(e.pointerId)) return;
+        pointers.set(e.pointerId, {x:e.clientX, y:e.clientY});
+
+        if (pointers.size === 1 && dragging){
+          const dx = e.clientX - lastX;
+          const dy = e.clientY - lastY;
+          tx += dx; ty += dy;
+          lastX = e.clientX; lastY = e.clientY;
+          setTransform();
+        }
+
+        if (pointers.size === 2){
+          const arr = Array.from(pointers.values());
+          const dx = arr[0].x - arr[1].x;
+          const dy = arr[0].y - arr[1].y;
+          const dist = Math.hypot(dx, dy);
+
+          const mid = { x:(arr[0].x + arr[1].x)/2, y:(arr[0].y + arr[1].y)/2 };
+
+          const newScale = pinchStartScale * (dist / (pinchStartDist || dist));
+
+          tx = pinchStartTx;
+          ty = pinchStartTy;
+          scale = pinchStartScale;
+          zoomAt(newScale, pinchStartMid.x, pinchStartMid.y);
+
+          tx += (mid.x - pinchStartMid.x);
+          ty += (mid.y - pinchStartMid.y);
+          setTransform();
+        }
+      });
+
+      function endPointer(e){
+        pointers.delete(e.pointerId);
+        if (pointers.size === 0) dragging = false;
+        if (pointers.size === 1){
+          const only = Array.from(pointers.values())[0];
+          lastX = only.x; lastY = only.y;
+        }
+      }
+      viewport.addEventListener('pointerup', endPointer);
+      viewport.addEventListener('pointercancel', endPointer);
+
+      viewport.addEventListener('dblclick', (e) => {
+        e.preventDefault();
+        resetToFit();
+      });
+
+      window.addEventListener('keydown', (e) => {
+        if (e.key.toLowerCase() === 'r') resetToFit();
+      });
+    })();
+  </script>
+</body>
+</html>

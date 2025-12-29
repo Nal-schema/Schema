@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EPA 8 - Erbjuda och genomföra adekvat smärtlindring</title>
+  <style>
+:root{
+  --bg: #f3f4f4;
+  --surface: #f0f1f2;
+  --surface-2: #ffffff;
+  --border: #dcddde;
+  --text: #37352f;
+  --muted: #626161;
+  --soft: #9a9a99;
+  --teal: #0684bd;
+  --teal-ink: #dceef7;
+  --blue-ink: #e0e8ff;
+  --orange-ink: #fde8dc;
+  --red-ink: #fce0dd;
+  --shadow: 0 2px 8px rgba(0,0,0,0.08);
+  --r-lg: 12px;
+  --r-md: 8px;
+  --pill: 999px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  padding: 24px 16px;
+}
+.page{max-width:1200px;margin:0 auto}
+.header{display:flex;flex-direction:column;gap:12px;margin-bottom:22px}
+.header-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+.kicker{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--teal)}
+.h1{font-size:28px;font-weight:650;letter-spacing:-.03em;line-height:1.15;color:var(--text)}
+.meta-row{display:flex;gap:10px;flex-wrap:wrap;font-size:12px}
+.meta-pill{display:inline-flex;gap:8px;align-items:center;border:1px solid var(--border);background:var(--surface);padding:6px 10px;border-radius:var(--pill)}
+.meta-label{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--soft)}
+.meta-value{color:var(--text);font-weight:500}
+
+.grid{display:grid;grid-template-columns:1fr;gap:18px}
+
+.card{background:var(--surface-2);border:1px solid var(--border);border-radius:var(--r-lg);padding:16px 18px 18px;box-shadow:var(--shadow)}
+.card-title{font-size:13px;font-weight:650;text-transform:uppercase;letter-spacing:.14em;color:var(--soft);margin-bottom:10px}
+
+/* dropdown instructions */
+.dropdown-toggle{
+  background:none;
+  border:none;
+  color:var(--teal);
+  cursor:pointer;
+  font-size:13px;
+  font-weight:700;
+  padding:0;
+  text-align:left;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  width:100%;
+}
+.dropdown-toggle::before{
+  content:"▶";
+  display:inline-block;
+  transition:transform 0.2s;
+  font-size:11px;
+}
+.dropdown-toggle.open::before{
+  transform:rotate(90deg);
+}
+.dropdown-content{
+  display:none;
+  margin-top:12px;
+}
+.dropdown-content.open{
+  display:block;
+}
+
+.info-text{color:var(--text);font-size:13px;line-height:1.45}
+.info-text h3{font-size:13px;font-weight:700;margin:10px 0 6px;color:var(--text)}
+.info-text h3:first-child{margin-top:0}
+.info-text p{margin:6px 0;}
+.info-text ul{margin:6px 0 0 18px;color:var(--text)}
+.info-text li{margin:4px 0}
+
+/* ST buttons */
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+.btn-year{
+  border:1px solid var(--border);
+  background:var(--surface-2);
+  color:var(--text);
+  border-radius:var(--pill);
+  padding:8px 12px;
+  font-size:13px;
+  font-weight:650;
+  cursor:pointer;
+  box-shadow:var(--shadow);
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+}
+.btn-year:hover{filter:brightness(0.98)}
+.btn-year.active{
+  border-color:rgba(6,132,189,.45);
+  box-shadow:0 0 0 4px rgba(6,132,189,.18),var(--shadow);
+}
+.dot{width:10px;height:10px;border-radius:50%;display:inline-block}
+
+/* competencies */
+.block{background:var(--surface-2);border:1px solid var(--border);border-radius:var(--r-lg);padding:14px 16px;margin-bottom:12px}
+.block-title{font-size:14px;font-weight:700;margin-bottom:8px}
+
+.epa-item{
+  background:var(--surface-2);
+  border:1px solid var(--border);
+  border-radius:var(--r-md);
+  padding:10px 12px;
+  margin-top:8px;
+}
+.epa-item-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.epa-competency{font-size:13.5px;font-weight:650;line-height:1.35}
+.badge{
+  border:1px solid var(--border);
+  background:var(--surface);
+  padding:3px 8px;
+  border-radius:var(--pill);
+  font-size:12px;
+  color:var(--muted);
+  white-space:nowrap;
+}
+.epa-meta{
+  margin-top:4px;
+  font-size:12px;
+  color:var(--muted);
+}
+.desc{
+  margin-top:6px;
+  padding-left:18px;
+  font-size:13px;
+  color:var(--muted);
+}
+.desc li{margin-top:3px}
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="header">
+      <div class="header-top">
+        <div>
+          <div class="kicker">EPA 8</div>
+          <div class="h1">Erbjuda och genomföra adekvat smärtlindring</div>
+        </div>
+      </div>
+
+      <div class="meta-row">
+        <div class="meta-pill">
+          <span class="meta-label">EPA</span>
+          <span class="meta-value">8 - Erbjuda och genomföra adekvat smärtlindring</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid">
+      <!-- Instruktioner dropdown -->
+      <div class="card">
+        <button class="dropdown-toggle" id="toggleBtn" onclick="toggleDropdown()">Instruktioner</button>
+        <div class="dropdown-content" id="dropdownContent">
+          <div class="info-text">
+            <h3>Smärtlindring och palliativt omhändertagande</h3>
+            <p>Värdera smärta och lägga upp en plan för smärtlindring samt genomföra denna. Behärska risk-nytta värdering för olika behandlingsalternativ ur ett medicinskt, etiskt, logistiskt och patientsäkerhetsperspektiv. Denna EPA innefattar också att identifiera och behandla patienter i livets slutskede, inklusive kommunicera med patient och anhöriga.</p>
+            <p>Kompetenser från tidigare EPA (1-7) ligger som grund för denna EPA och kommer inte upprepas här.</p>
+
+            <h3>Huvudsakliga områden:</h3>
+            <ul>
+              <li>samarbeta i nätverk kring patienten och förankra plan med mottagnade enheter</li>
+              <li>identifiera etiska problem och analysera dessa på ett strukturerat sätt</li>
+              <li>kommunicera svåra besked</li>
+            </ul>
+
+            <h3>Exempel på färdigheter som ingår i denna EPA:</h3>
+            <ul>
+              <li>lokalanestesi och blockader</li>
+              <li>procedursedering och -analgesi</li>
+              <li>planera långtidssmärtlindring</li>
+              <li>brytpunktsamtal</li>
+              <li>palliativ smärtlindring</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- ST filter -->
+      <div class="card">
+        <div class="card-title">ST</div>
+        <div class="toolbar">
+          <button class="btn-year" id="btnLight" type="button">
+            <span class="dot" style="background:#d7e3bc"></span>År 1–2
+          </button>
+          <button class="btn-year" id="btnYellow" type="button">
+            <span class="dot" style="background:#ffd400"></span>År 3–4
+          </button>
+          <button class="btn-year" id="btnDark" type="button">
+            <span class="dot" style="background:#00b050"></span>År 5
+          </button>
+        </div>
+      </div>
+
+      <div id="content"></div>
+    </div>
+  </div>
+
+  <script>
+    function toggleDropdown() {
+      const btn = document.getElementById("toggleBtn");
+      const content = document.getElementById("dropdownContent");
+      btn.classList.toggle("open");
+      content.classList.toggle("open");
+    }
+
+    // STATIC data extracted from epa8.xlsx (EPA 8)
+    const DATA = [
+      {"section":"Anamnes och status","level":"Nivå 1","year_band":"light","competency":"Bedöma smärtgrad och genomföra smärtskattning hos patienter i alla åldrar","descriptors":["Utb teori om självskattningsskalor vs observationsskalor, olika skalor för barn, dementa.","Bed handledarsamtal"]},
+      {"section":"Anamnes och status","level":"Nivå 2","year_band":"yellow","competency":"Göra en riskvärdering för avsedd smärtlindring, kunna maxdoser samt komplikationer som kan uppstå och hur man förebygger och behandlar dessa.","descriptors":["Utb farmakologi för olika analgetika samt sederingsläkemedel, teori om riskvärdering för svår maskventilation, LMA, intubation och kirurgisk luftväg, luftvägskurs, internutbildning, sidotjänstgöring anestesi","Bed Handledarsamtal under sidotjänstgöring, klinisk observation, PSA DT 5"]},
+      {"section":"Anamnes och status","level":"Nivå 3","year_band":"dark","competency":"Kunna göra en plan för procedursedering och analgesi samt för komplikationer som kan uppstå och hur dessa ska undvikas och behandlas","descriptors":["Utb internutbildning, luftvägskurs, sidotjänstgöring anestesi, lokal utbildning/ certifiering i PSA","Bed Handledarsamtal under sidotjänstgöring, klinisk observation, PSA DT 5"]},
+      {"section":"Anamnes och status","level":"Nivå 4","year_band":"dark","competency":"Handleda andra i risk-nytta värdering utifrån patientens fysiska faktorer","descriptors":["Utb Handledarutbildning","Bed Observation under handledning"]},
+
+      {"section":"Övrig datainsamling inklusive prov","level":"Nivå 2","year_band":"yellow","competency":"Inventera läget på akuten och ta hänsyn till möjligheten att utföra smärtsamma ingrepp på akuten utifrån belastningen i övrigt","descriptors":["Utb Klinisk tjänstgöring","Bed handledarsamtal"]},
+
+      {"section":"Differentialdiagnostik och sannolikhetsbedömning","level":"Nivå 2","year_band":"yellow","competency":"Kunna avgöra när procedursedering och analgesi inte är lämpligt på akuten utifrån risk-nytta värdering och även ta hänsyn till akuticitetsgraden för planerat ingrepp","descriptors":["Utb Internutbildning, luftvägskurs","Bed handledarsamtal, CBD"]},
+      {"section":"Differentialdiagnostik och sannolikhetsbedömning","level":"Nivå 3","year_band":"dark","competency":"Göra en plan A, B och C samt tydligt kommunicera detta till inblandade medarbetare inför PSA","descriptors":["Utb Internutbildning, luftvägskurs, sidotjänstgöring anestesi","Bed PSA DT 5"]},
+
+      {"section":"Utredning och initial behandling","level":"Nivå 2","year_band":"yellow","competency":"Kunna tillämpa grundläggande principer för palliativ symtomlindring med beaktande av fysiska, psykiska, sociala och existentiella behov","descriptors":["Utb Medåkning MALT, ev placering palliativa teamet","Bed handledarsamtal, CBD"]},
+      {"section":"Utredning och initial behandling","level":"Nivå 1","year_band":"light","competency":"Kunna ordinera och dosera smärtlindringen efter förväntad intensitet och duration av smärta","descriptors":["Utb teori om farmakologi","Bed handledarsamtal, CBD"]},
+      {"section":"Utredning och initial behandling","level":"Nivå 2","year_band":"yellow","competency":"Kunna dosera och använda lokalanestesi inför ingrepp (doser, tekniker, komplikationer)","descriptors":["Utb självstudier","Bed DOPS"]},
+      {"section":"Utredning och initial behandling","level":"Nivå 3","year_band":"dark","competency":"Lägga finger-bas- och tå-bas blockader, hematomblockad samt övriga nervblockader vb","descriptors":["Utb Klinisk tjänstgöring","Bed DOPS"]},
+      {"section":"Utredning och initial behandling","level":"Nivå 4","year_band":"dark","competency":"Lägga höftblockader (pref fascia iliacablockad)","descriptors":["Utb Sidotjänstgöring anestesi, klinisk tjänstgöring","Bed DOPS"]},
+      {"section":"Utredning och initial behandling","level":"Nivå 3","year_band":"dark","competency":"Kunna handläggning av toxiska komplikationer efter lokalanestesi och ev intravasal injektion","descriptors":["Utb Internutbildning, toxikologiskurs, självstudier","Bed handledarsamtal, CBD"]},
+      {"section":"Utredning och initial behandling","level":"Nivå 1","year_band":"light","competency":"Kunna välja och dosera smärtlindring anpassat till ålder (barn, äldre), kroppsstorlek (obesa, extremt magra) samt njur- och leverfunktion","descriptors":["Utb självstudier","Bed handledarsamtal, CBD"]},
+      {"section":"Utredning och initial behandling","level":"Nivå 2","year_band":"yellow","competency":"Kunna välja och dosera smärtlindring utifrån vitalparametrar och ta hänsyn till dessa","descriptors":["Utb Självstudier, sidotjänstgöring anestesi, klinisk tjänstgöring","Bed Observation, DOPS"]},
+      {"section":"Utredning och initial behandling","level":"Nivå 3","year_band":"dark","competency":"Genomföra procedursedering och -analgesi enligt lokala rutiner och guidelines","descriptors":["Utb handledning vid PSA, luftvägskurs, internutbildning","Bed DOPS, PSA DT 5"]},
+      {"section":"Utredning och initial behandling","level":"Nivå 4","year_band":"dark","competency":"Handleda och utbilda i PSA","descriptors":["Utb Handledarutbildning","Bed Observation under handledning"]},
+
+      {"section":"Disposition","level":"Nivå 1","year_band":"light","competency":"Presentera och förklara medicinsk information på ett sätt som är förståeligt för mottagaren, såväl muntligt som skriftligt","descriptors":["Utb Klinisk tjänstgöring","Bed medsittning"]},
+      {"section":"Disposition","level":"Nivå 2","year_band":"yellow","competency":"Diskutera HLR och vårdnivå med patienter och anhöriga","descriptors":["Utb Etikkurs, kommunikationskurs, klinisk tjänstgöring","Bed medsittning"]},
+      {"section":"Disposition","level":"Nivå 1","year_band":"light","competency":"Kunna ordinera och dosera uppföljande smärtlindring (smärttrappa WHO)","descriptors":["Utb Självstudier, kjlinisk tjänstgöring","Bed Feedback från medarbetare"]},
+
+      {"section":"Kommunikation","level":"Nivå 1","year_band":"light","competency":"Kunna samarbeta i nätverk kring patienten (NSVT, MALT, palliativ vård via primärvården)","descriptors":["Utb Klinisk tjänstgöring","Bed handledarsamtal"]},
+      {"section":"Kommunikation","level":"Nivå 2","year_band":"yellow","competency":"Kunna ge patienter och närstående svåra besked med respekt, empati och lyhördhet, inklusive akut krishantering","descriptors":["Utb klinisk tjänstgöring, kurser i palliativ medicin","Bed medsittning"]},
+      {"section":"Kommunikation","level":"Nivå 3","year_band":"dark","competency":"Kunna hålla i brytpunktssamtal samt dokumentera detta","descriptors":["Utb Klinisk tjänstgöring, ev frivillig tjänstgöring palliativa teamet","Bed medsittning"]},
+      {"section":"Kommunikation","level":"Nivå 4","year_band":"dark","competency":"Kunna hantera situationer när patient eller anhöriga är inte överens med läkarens beslut om behandlings- begränsningar.","descriptors":["Utb Etikkurs, kommunikationskurs, klinisk tjänstgöring","Bed handledarsamtal, CBD"]},
+
+      {"section":"Övrigt","level":"Nivå 1","year_band":"light","competency":"Konstatera dödsfall och skriva dödsbevis och dödsorsaksintyg","descriptors":["Utb klinisk tjänstgöring","Bed medsittning, handledarsamtal"]},
+      {"section":"Övrigt","level":"Nivå 2","year_band":"yellow","competency":"Kunna identifiera etiska problem och analysera dessa på ett strukturerat sätt","descriptors":["Utb etik-kurs","Bed medsittning, handledarsamtal"]}
+    ];
+
+    const yearOrder = { light: 1, yellow: 2, dark: 3 };
+    const yearLabel = { light: "År 1–2", yellow: "År 3–4", dark: "År 5" };
+
+    const content = document.getElementById("content");
+    const btnLight = document.getElementById("btnLight");
+    const btnYellow = document.getElementById("btnYellow");
+    const btnDark = document.getElementById("btnDark");
+
+    function setActive(btn) {
+      [btnLight, btnYellow, btnDark].forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+    }
+
+    function esc(s) {
+      return String(s ?? "")
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;");
+    }
+
+    function render(maxYear) {
+      const filtered = DATA.filter(r => yearOrder[r.year_band] <= maxYear);
+
+      const bySection = {};
+      filtered.forEach(r => {
+        (bySection[r.section] ??= []).push(r);
+      });
+
+      const sections = Object.keys(bySection).sort((a,b) => a.localeCompare(b,"sv"));
+      const levelRank = { "Nivå 1":1, "Nivå 2":2, "Nivå 3":3, "Nivå 4":4 };
+
+      let out = "";
+      for (const section of sections) {
+        const items = bySection[section]
+          .slice()
+          .sort((a,b) =>
+            (levelRank[a.level] - levelRank[b.level]) ||
+            (yearOrder[a.year_band] - yearOrder[b.year_band]) ||
+            a.competency.localeCompare(b.competency,"sv")
+          );
+
+        out += `<div class="block epa-section">`;
+        out += `<div class="block-title">${esc(section)}</div>`;
+
+        for (const item of items) {
+          const dotColor =
+            item.year_band === "light" ? "#d7e3bc" :
+            item.year_band === "yellow" ? "#ffd400" :
+            "#00b050";
+
+          out += `<div class="epa-item">`;
+          out += `  <div class="epa-item-head">`;
+          out += `    <div class="epa-competency"><span class="dot" style="background:${dotColor};margin-right:8px"></span>${esc(item.competency)}</div>`;
+          out += `    <div class="badge">${esc(item.level)}</div>`;
+          out += `  </div>`;
+          out += `  <div class="epa-meta">${esc(yearLabel[item.year_band])}</div>`;
+
+          if (item.descriptors && item.descriptors.length) {
+            out += `<ul class="desc">`;
+            item.descriptors.forEach(d => {
+              String(d).split(/\n+/).filter(Boolean).forEach(line => {
+                out += `<li>${esc(line.trim())}</li>`;
+              });
+            });
+            out += `</ul>`;
+          }
+
+          out += `</div>`;
+        }
+
+        out += `</div>`;
+      }
+
+      content.innerHTML = out || `<div class="block"><div class="block-title">Inga kompetenser matchar filtret.</div></div>`;
+    }
+
+    btnLight.addEventListener("click", () => { setActive(btnLight); render(1); });
+    btnYellow.addEventListener("click", () => { setActive(btnYellow); render(2); });
+    btnDark.addEventListener("click", () => { setActive(btnDark); render(3); });
+
+    // initial view
+    setActive(btnLight);
+    render(1);
+  </script>
+</body>
+</html>

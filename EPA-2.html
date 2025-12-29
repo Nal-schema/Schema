@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EPA 2 - Handlägga en komplicerad stabil patient</title>
+  <style>
+:root{
+  --bg: #f3f4f4;
+  --surface: #f0f1f2;
+  --surface-2: #ffffff;
+  --border: #dcddde;
+  --text: #37352f;
+  --muted: #626161;
+  --soft: #9a9a99;
+  --teal: #0684bd;
+  --teal-ink: #dceef7;
+  --blue-ink: #e0e8ff;
+  --orange-ink: #fde8dc;
+  --red-ink: #fce0dd;
+  --shadow: 0 2px 8px rgba(0,0,0,0.08);
+  --r-lg: 12px;
+  --r-md: 8px;
+  --pill: 999px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  padding: 24px 16px;
+}
+.page{max-width:1200px;margin:0 auto}
+.header{display:flex;flex-direction:column;gap:12px;margin-bottom:22px}
+.header-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+.kicker{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--teal)}
+.h1{font-size:28px;font-weight:650;letter-spacing:-.03em;line-height:1.15;color:var(--text)}
+.meta-row{display:flex;gap:10px;flex-wrap:wrap;font-size:12px}
+.meta-pill{display:inline-flex;gap:8px;align-items:center;border:1px solid var(--border);background:var(--surface);padding:6px 10px;border-radius:var(--pill)}
+.meta-label{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--soft)}
+.meta-value{color:var(--text);font-weight:500}
+
+.grid{display:grid;grid-template-columns:1fr;gap:18px}
+
+.card{background:var(--surface-2);border:1px solid var(--border);border-radius:var(--r-lg);padding:16px 18px 18px;box-shadow:var(--shadow)}
+.card-title{font-size:13px;font-weight:650;text-transform:uppercase;letter-spacing:.14em;color:var(--soft);margin-bottom:10px}
+
+/* dropdown instructions */
+.dropdown-toggle{
+  background:none;
+  border:none;
+  color:var(--teal);
+  cursor:pointer;
+  font-size:13px;
+  font-weight:700;
+  padding:0;
+  text-align:left;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  width:100%;
+}
+.dropdown-toggle::before{
+  content:"▶";
+  display:inline-block;
+  transition:transform 0.2s;
+  font-size:11px;
+}
+.dropdown-toggle.open::before{
+  transform:rotate(90deg);
+}
+.dropdown-content{
+  display:none;
+  margin-top:12px;
+}
+.dropdown-content.open{
+  display:block;
+}
+
+.info-text{color:var(--text);font-size:13px;line-height:1.45}
+.info-text h3{font-size:13px;font-weight:700;margin:10px 0 6px;color:var(--text)}
+.info-text h3:first-child{margin-top:0}
+.info-text ul{margin:6px 0 0 18px;color:var(--text)}
+.info-text li{margin:4px 0}
+
+/* ST buttons */
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+.btn-year{
+  border:1px solid var(--border);
+  background:var(--surface-2);
+  color:var(--text);
+  border-radius:var(--pill);
+  padding:8px 12px;
+  font-size:13px;
+  font-weight:650;
+  cursor:pointer;
+  box-shadow:var(--shadow);
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+}
+.btn-year:hover{filter:brightness(0.98)}
+.btn-year.active{
+  border-color:rgba(6,132,189,.45);
+  box-shadow:0 0 0 4px rgba(6,132,189,.18),var(--shadow);
+}
+.dot{width:10px;height:10px;border-radius:50%;display:inline-block}
+
+/* competencies */
+.block{background:var(--surface-2);border:1px solid var(--border);border-radius:var(--r-lg);padding:14px 16px;margin-bottom:12px}
+.block-title{font-size:14px;font-weight:700;margin-bottom:8px}
+
+.epa-item{
+  background:var(--surface-2);
+  border:1px solid var(--border);
+  border-radius:var(--r-md);
+  padding:10px 12px;
+  margin-top:8px;
+}
+.epa-item-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.epa-competency{font-size:13.5px;font-weight:650;line-height:1.35}
+.badge{
+  border:1px solid var(--border);
+  background:var(--surface);
+  padding:3px 8px;
+  border-radius:var(--pill);
+  font-size:12px;
+  color:var(--muted);
+  white-space:nowrap;
+}
+.epa-meta{
+  margin-top:4px;
+  font-size:12px;
+  color:var(--muted);
+}
+.desc{
+  margin-top:6px;
+  padding-left:18px;
+  font-size:13px;
+  color:var(--muted);
+}
+.desc li{margin-top:3px}
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="header">
+      <div class="header-top">
+        <div>
+          <div class="kicker">EPA 2</div>
+          <div class="h1">Handlägga en komplicerad stabil patient</div>
+        </div>
+      </div>
+
+      <div class="meta-row">
+        <div class="meta-pill">
+          <span class="meta-label">EPA</span>
+          <span class="meta-value">2 - Handlägga en komplicerad stabil patient</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid">
+      <!-- Instruktioner dropdown -->
+      <div class="card">
+        <button class="dropdown-toggle" id="toggleBtn" onclick="toggleDropdown()">Instruktioner</button>
+        <div class="dropdown-content" id="dropdownContent">
+          <div class="info-text">
+            <h3>Bedömning och handläggning av patienter med prioritet 3 eller 4 med komplicerande faktorer som försvårar bedömningen (se exempel nedan).</h3>
+            <p>Detta innefattar att optimera omhändertagandet på akutmottagningen och vid uppföljning i synnerhet om det finns osäkerhet kring diagnosen.</p>
+
+            <h3>Exempel på patienter som ingår i denna EPA:</h3>
+            <ul>
+              <li>multipla sökorsaker</li>
+              <li>vaga symptom såsom trötthet, svaghet, yrsel, koordinationssvårigheter, nedsatt allmäntillstånd, avvikande beteende</li>
+              <li>barn med vaga symptom som letargi, föräldraoro, gråtande barn, avvikande beteende</li>
+              <li>personer som inte har förmåga att ge ordentlig anamnes t.ex. på grund av afasi, dålig hörsel, nedsatt kognition eller underliggande psykisk sjukdom</li>
+              <li>personer med dålig compliance där det finns svårigheter med poliklinisk uppföljning</li>
+              <li>personer med komplicerande tidigare sjukdomshistoria eller polyfarmaci</li>
+              <li>mycket unga eller mycket gamla patienter</li>
+            </ul>
+
+            <h3>Exempel på färdigheter som ingår i denna EPA:</h3>
+            <ul>
+              <li>anamnes och status, inklusive psykiatriskt status, nervstatus</li>
+              <li>suicidriskbedömning</li>
+              <li>screening för delirium</li>
+              <li>orosanmälan barn som far illa</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- ST filter -->
+      <div class="card">
+        <div class="card-title">ST</div>
+        <div class="toolbar">
+          <button class="btn-year" id="btnLight" type="button">
+            <span class="dot" style="background:#d7e3bc"></span>År 1–2
+          </button>
+          <button class="btn-year" id="btnYellow" type="button">
+            <span class="dot" style="background:#ffd400"></span>År 3–4
+          </button>
+          <button class="btn-year" id="btnDark" type="button">
+            <span class="dot" style="background:#00b050"></span>År 5
+          </button>
+        </div>
+      </div>
+
+      <div id="content"></div>
+    </div>
+  </div>
+
+  <script>
+    function toggleDropdown() {
+      const btn = document.getElementById("toggleBtn");
+      const content = document.getElementById("dropdownContent");
+      btn.classList.toggle("open");
+      content.classList.toggle("open");
+    }
+
+    // STATIC data extracted from epa2.xlsx (EPA 2)
+    const DATA = [
+      {"section":"Anamnes och status","level":"Nivå 1","year_band":"light","competency":"Identifiera att en patient har flertalet symtom och ta relevant anamnes för varje symtom","descriptors":["Utb Klinisk tjänstgöring, Handledarsamtal","Bed Medsittning"]},
+      {"section":"Anamnes och status","level":"Nivå 2","year_band":"light","competency":"Kunna sålla bland flertalet symtom och fokusera på de mest allvarliga","descriptors":["Utb Klinisk tjänstgöring","Bed Medsittning"]},
+      {"section":"Anamnes och status","level":"Nivå 3","year_band":"yellow","competency":"Hos gravid patient ta adekvat anamnes med hänsyn till graviditeten och eventuella komplikationer samt ta hänsyn till fostrets mående","descriptors":["Utb Sidotjänstgöring GynOb","Bed Medsittning"]},
+      {"section":"Anamnes och status","level":"Nivå 1","year_band":"light","competency":"Bredda informationsinhämtning till tidigare journaler, samtal med personal på särskilt boende, samtal med närstående då autoanamnes är svårtolkad","descriptors":["Utb Klinisk tjänstgöring","Bed Handledardiskussioner"]},
+      {"section":"Anamnes och status","level":"Nivå 1","year_band":"yellow","competency":"Genomföra psykiatriskt status och suicidriskbedömning","descriptors":["Utb internutbildning, klinisk tjänstgöring","Bed medsittning Psykstatus DT3"]},
+      {"section":"Anamnes och status","level":"Nivå 2","year_band":"yellow","competency":"Uppmärksamma symptom eller tecken på akut konfusion eller risk att utveckla delirium hos äldre patienter","descriptors":["Utb Klinisk tjänstgöring","Bed Medsittning, CBD, Mini-cex, handledardiskussion"]},
+      {"section":"Anamnes och status","level":"Nivå 1","year_band":"light","competency":"Genomföra nervstatus","descriptors":["Utb Internutbildning","Bed Medsittning, Nervstatus DT 3"]},
+
+      {"section":"Differentialdiagnostik och sannolikhetsbedömning","level":"Nivå 2","year_band":"light","competency":"Kunna värdera en komplex symtombild och identifiera de mest bestickande fynden i anamnes och status","descriptors":["Utb Internutbildning","Bed Handledardiskussioner"]},
+      {"section":"Differentialdiagnostik och sannolikhetsbedömning","level":"Nivå 3","year_band":"yellow","competency":"Identifiera när diffusa symptom patienten söker för talar för allvarlig patologi som behöver utredas vidare, trots att dessa symptom kanske inte är patientens primära sökorsak","descriptors":["Utb Klinisk tjänstgöring","Bed Handledardiskussioner"]},
+      {"section":"Differentialdiagnostik och sannolikhetsbedömning","level":"Nivå 4","year_band":"dark","competency":"Kunna sålla i anamnes man får som handledare och själv kontrollera fynd som känns diffusa","descriptors":["Utb Klinisk tjänstgöring","Bed Handledardiskussioner och kliniska observationer"]},
+      {"section":"Differentialdiagnostik och sannolikhetsbedömning","level":"Nivå 1","year_band":"light","competency":"Ta hänsyn till patientens läkemedel och överväga om läkemedelsbiverkan och/eller överdosering bidrar till patientens symtomatologi","descriptors":["Utb Läkemedelsutb","Bed Handledarsamtal"]},
+      {"section":"Differentialdiagnostik och sannolikhetsbedömning","level":"Nivå 2","year_band":"yellow","competency":"Identifiera allvarlig psykisk sjukdom som behöver akut vård","descriptors":["Utb Internutbildning","Bed Handledarsamtal, diagnostiska resonemang"]},
+      {"section":"Differentialdiagnostik och sannolikhetsbedömning","level":"Nivå 3","year_band":"yellow","competency":"Ta med somatiska aspekter på psykiatriska symptom och göra sannolikhetsbedömningar avseende dessa t.ex limbisk encefalit, thyroideasjukdom, glukosrubbningar, intoxikationer m.fl.","descriptors":["Utb Internutbildning","Bed Handledarsamtal, diagnostiska resonemang"]},
+      {"section":"Differentialdiagnostik och sannolikhetsbedömning","level":"Nivå 4","year_band":"dark","competency":"Instruktionshandleda och diskutera handläggning och plan, ge tydlig och konstruktiv feedback","descriptors":["Utb HL-utbildning","Bed Medsittning under handledningstillfälle"]},
+      {"section":"Differentialdiagnostik och sannolikhetsbedömning","level":"Nivå 1","year_band":"light","competency":"Ta hänsyn till annorlunda sjukdomspanorama och symtomatologi när det gäller äldre, gravida och spädbarn, i synnerhet nyföddhetsperioden","descriptors":["Utb Kurs i geriatrik frivillig, sidotjänstgöring barnakut, sidotjänstgöring GynOb","Bed CBD, Mini-CEX"]},
+
+      {"section":"Utredning och initialt behandling","level":"Nivå 2","year_band":"light","competency":"Kunna avstå från att utreda icke-akuta eller icke-alarmerande symptom trots att dessa kanske är det primära patienten söker för","descriptors":["Utb Klinisk tjänstgöring","Bed Handledarsamtal"]},
+      {"section":"Utredning och initialt behandling","level":"Nivå 3","year_band":"yellow","competency":"Värdera risk-nytta med olika handläggningsalternativ ur ett medicinskt, etiskt och logistiskt perspektiv samt ett patientsäkerhetsperspektiv","descriptors":["Utb Etikkurs, klinisk tjänstgöring","Bed Handledarsamtal"]},
+      {"section":"Utredning och initialt behandling","level":"Nivå 4","year_band":"dark","competency":"Vägleda i risk-nytta värderingar och väga detta i olika handlingsalternativ","descriptors":["Utb Etikkurs, internutbildning","Bed Medsittning under handledningstillfälle"]},
+      {"section":"Utredning och initialt behandling","level":"Nivå 1","year_band":"light","competency":"Utreda patienter som kan ha somatisk orsak till psykiatriska symptom på ett adekvat sätt","descriptors":["Utb Klinisk tjänstgöring","Bed Handledarsamtal"]},
+      {"section":"Utredning och initialt behandling","level":"Nivå 2","year_band":"yellow","competency":"Initiera behandling utifrån sannolikhetsbedömning samt täcka för allvarligaste diagnoser","descriptors":["Utb Klinisk tjänstgöring","Bed Handledarsamtal"]},
+      {"section":"Utredning och initialt behandling","level":"Nivå 1","year_band":"yellow","competency":"Kunna behandla delirium hos äldre, både icke-farmakologiskt och farmakologiskt","descriptors":["Utb Kurs i geriatrik frivilligt, klinisk tjänstgöring","Bed CBD, Mini-CEX"]},
+      {"section":"Utredning och initialt behandling","level":"Nivå 2","year_band":"yellow","competency":"Kunna värdera smärta hos barn och dementa och behandla adekvat","descriptors":["Utb ATLS, APLS/EPALS och klinisk tjänstgöring","Bed CBD, Mini-CEX, klinisk observation, handledarsamtal"]},
+      {"section":"Utredning och initialt behandling","level":"Nivå 3","year_band":"yellow","competency":"Vara medveten om att äldre patienter kan få stora skador av lågenergivåld som falltrauma och utreda detta på adekvat sätt","descriptors":["Utb ATLS, APLS/EPALS och klinisk tjänstgöring","Bed CBD, Mini-CEX, klinisk observation, handledarsamtal"]},
+
+      {"section":"Disposition","level":"Nivå 1","year_band":"light","competency":"Utfärda vårdintyg enligt §4 LPT och ordna säker transport till psykiatrisk inrättning, inkl skriva begäran om polishandräckning","descriptors":["Utb Klinisk tjänstgöring","Bed Handledarsamtal och genomgång av vårdintyg"]},
+      {"section":"Disposition","level":"Nivå 2","year_band":"yellow","competency":"Förebygga delirium hos äldre genom att undvika olämpliga läkemedel, se över nutrition, mobilisering, sömn och undvika onödiga förflyttningar","descriptors":["Utb Klinisk tjänstgöring","Bed CBD, handledardiskussion"]},
+
+      {"section":"Kommunikation","level":"Nivå 1","year_band":"light","competency":"Samarbeta med patienter och närstående och förklara medicinsk information på ett sätt som är förståeligt för mottagaren","descriptors":["Utb Kommunikationskurs del i ledarskapsprogram, klinisk tjänstgöring","Bed medsittning vid slutsamtal"]},
+      {"section":"Kommunikation","level":"Nivå 2","year_band":"yellow","competency":"Hantera upprörda patienter eller patienter som misstror vården","descriptors":["Utb Kommunikationskurs del i ledarskapsprogram, klinisk tjänstgöring","Bed medsittning"]},
+      {"section":"Kommunikation","level":"Nivå 3","year_band":"dark","competency":"Bemöta aggressiva patienter, de-eskalera och vända samtalet till ett produktivt möte","descriptors":["Utb Ledarskapsutbildning","Bed medsittning"]},
+      {"section":"Kommunikation","level":"Nivå 1","year_band":"light","competency":"Använda professionell tolk när språkförbistring föreligger och veta hur tolksamtal ska fungera","descriptors":["Utb Klinisk tjänstgöring","Bed Handledarsamtal"]},
+      {"section":"Kommunikation","level":"Nivå 3","year_band":"dark","competency":"Diskutera och handleda yngre kollegor gällande tolksamtal","descriptors":["Utb HL-utbildning","Bed Medsittning under handledningstillfälle"]},
+      {"section":"Kommunikation","level":"Nivå 1","year_band":"light","competency":"Kommunicera och samverka med hela teamet på akuten samt vid behov övrig vårdpersonal. Ha kännedom om andra aktörer kring patienten och möjligheter att kommunicera med dem; arbeta med säkra överrapporteringar (SBAR)","descriptors":["Utb Klinisk tjänstgöring","Bed Observation under arbete, 360-bedömningar"]},
+      {"section":"Kommunikation","level":"Nivå 2","year_band":"yellow","competency":"Sjukskriva patient samt utfärda intyg","descriptors":["Utb Försäkringsmedicin","Bed Medsittning, handledarsamtal"]},
+      {"section":"Kommunikation","level":"Nivå 3","year_band":"dark","competency":"Samarbeta i nätverk kring patienten (primärvård, sjukgymnastik, konsulter, avdelningar m.m.) och samverka med aktörer utanför hälso- och sjukvården t.ex socialnämnder","descriptors":["Utb Försäkringsmedicin, lagar och förordningar","Bed Observation under arbete, 360-bedömningar, handledarsamtal"]},
+
+      {"section":"Övrigt","level":"Nivå 2","year_band":"yellow","competency":"Identifiera etiska problem och analysera dessa på ett strukturerat sätt","descriptors":["Utb Etikkurs, klinisk tjänstgöring","Bed Handledarsamtal, CBD"]},
+      {"section":"Övrigt","level":"Nivå 3","year_band":"dark","competency":"Vägleda kollegor i identifierandet av etiska dilemman samt hur man hanterar dessa","descriptors":["Utb HL-utbildning","Bed Medsittning under handledningstillfälle"]},
+      {"section":"Övrigt","level":"Nivå 1","year_band":"light","competency":"Identifiera när det finns risk att barn far illa och utföra orosanmälan; ha kännedom om när polisanmälan ska göras och hur man hanterar föräldrar i väntan på polis; ta akut kontakt med socialtjänsten vid stark misstanke om barn som far illa","descriptors":["Utb Barn i fara / barn som anhörig / beroendemedicin via internutbildningen","Bed klinisk observation, genomgång av orosanmälan"]},
+      {"section":"Övrigt","level":"Nivå 2","year_band":"yellow","competency":"Identifiera allvarligt missbruk och anmäla till socialnämnden enligt LVM om patienten är i behov av omedelbar vård som inte kan tillgodoses på annat sätt","descriptors":["Utb Internutbildning","Bed klinisk observation, genomgång av LVM-anmälan/orosanmälan"]},
+      {"section":"Övrigt","level":"Nivå 3","year_band":"dark","competency":"Handleda yngre kollegor i kontakter med socialtjänsten eller andra myndigheter","descriptors":["Utb HL-utbildning","Bed Medsittning under handledningstillfälle"]}
+    ];
+
+    const yearOrder = { light: 1, yellow: 2, dark: 3 };
+    const yearLabel = { light: "År 1–2", yellow: "År 3–4", dark: "År 5" };
+
+    const content = document.getElementById("content");
+    const btnLight = document.getElementById("btnLight");
+    const btnYellow = document.getElementById("btnYellow");
+    const btnDark = document.getElementById("btnDark");
+
+    function setActive(btn) {
+      [btnLight, btnYellow, btnDark].forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+    }
+
+    function esc(s) {
+      return String(s ?? "")
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;");
+    }
+
+    function render(maxYear) {
+      const filtered = DATA.filter(r => yearOrder[r.year_band] <= maxYear);
+
+      const bySection = {};
+      filtered.forEach(r => {
+        (bySection[r.section] ??= []).push(r);
+      });
+
+      const sections = Object.keys(bySection).sort((a,b) => a.localeCompare(b,"sv"));
+      const levelRank = { "Nivå 1":1, "Nivå 2":2, "Nivå 3":3, "Nivå 4":4 };
+
+      let out = "";
+      for (const section of sections) {
+        const items = bySection[section]
+          .slice()
+          .sort((a,b) =>
+            (levelRank[a.level] - levelRank[b.level]) ||
+            (yearOrder[a.year_band] - yearOrder[b.year_band]) ||
+            a.competency.localeCompare(b.competency,"sv")
+          );
+
+        out += `<div class="block epa-section">`;
+        out += `<div class="block-title">${esc(section)}</div>`;
+
+        for (const item of items) {
+          const dotColor =
+            item.year_band === "light" ? "#d7e3bc" :
+            item.year_band === "yellow" ? "#ffd400" :
+            "#00b050";
+
+          out += `<div class="epa-item">`;
+          out += `  <div class="epa-item-head">`;
+          out += `    <div class="epa-competency"><span class="dot" style="background:${dotColor};margin-right:8px"></span>${esc(item.competency)}</div>`;
+          out += `    <div class="badge">${esc(item.level)}</div>`;
+          out += `  </div>`;
+          out += `  <div class="epa-meta">${esc(yearLabel[item.year_band])}</div>`;
+
+          if (item.descriptors && item.descriptors.length) {
+            out += `<ul class="desc">`;
+            item.descriptors.forEach(d => {
+              String(d).split(/\n+/).filter(Boolean).forEach(line => {
+                out += `<li>${esc(line.trim())}</li>`;
+              });
+            });
+            out += `</ul>`;
+          }
+
+          out += `</div>`;
+        }
+
+        out += `</div>`;
+      }
+
+      content.innerHTML = out || `<div class="block"><div class="block-title">Inga kompetenser matchar filtret.</div></div>`;
+    }
+
+    btnLight.addEventListener("click", () => { setActive(btnLight); render(1); });
+    btnYellow.addEventListener("click", () => { setActive(btnYellow); render(2); });
+    btnDark.addEventListener("click", () => { setActive(btnDark); render(3); });
+
+    // initial view
+    setActive(btnLight);
+    render(1);
+  </script>
+</body>
+</html>

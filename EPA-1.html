@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EPA 1 - Handlägga en okomplicerad patient</title>
+  <style>
+:root{
+  --bg: #f3f4f4;
+  --surface: #f0f1f2;
+  --surface-2: #ffffff;
+  --border: #dcddde;
+  --text: #37352f;
+  --muted: #626161;
+  --soft: #9a9a99;
+  --teal: #0684bd;
+  --teal-ink: #dceef7;
+  --blue-ink: #e0e8ff;
+  --orange-ink: #fde8dc;
+  --red-ink: #fce0dd;
+  --shadow: 0 2px 8px rgba(0,0,0,0.08);
+  --r-lg: 12px;
+  --r-md: 8px;
+  --pill: 999px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  padding: 24px 16px;
+}
+.page{max-width:1200px;margin:0 auto}
+.header{display:flex;flex-direction:column;gap:12px;margin-bottom:22px}
+.header-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+.kicker{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--teal)}
+.h1{font-size:28px;font-weight:650;letter-spacing:-.03em;line-height:1.15;color:var(--text)}
+.meta-row{display:flex;gap:10px;flex-wrap:wrap;font-size:12px}
+.meta-pill{display:inline-flex;gap:8px;align-items:center;border:1px solid var(--border);background:var(--surface);padding:6px 10px;border-radius:var(--pill)}
+.meta-label{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--soft)}
+.meta-value{color:var(--text);font-weight:500}
+.grid{display:grid;grid-template-columns:1fr;gap:18px}
+
+.card{background:var(--surface-2);border:1px solid var(--border);border-radius:var(--r-lg);padding:16px 18px 18px;box-shadow:var(--shadow)}
+.card-title{font-size:13px;font-weight:650;text-transform:uppercase;letter-spacing:.14em;color:var(--soft);margin-bottom:10px}
+
+.dropdown-toggle{
+  background:none;
+  border:none;
+  color:var(--teal);
+  cursor:pointer;
+  font-size:13px;
+  font-weight:700;
+  padding:0;
+  text-align:left;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  width:100%;
+}
+.dropdown-toggle::before{
+  content:"▶";
+  display:inline-block;
+  transition:transform 0.2s;
+  font-size:11px;
+}
+.dropdown-toggle.open::before{
+  transform:rotate(90deg);
+}
+
+.dropdown-content{
+  display:none;
+  margin-top:12px;
+}
+.dropdown-content.open{
+  display:block;
+}
+
+.info-text{color:var(--text);font-size:13px;line-height:1.45}
+.info-text h3{font-size:13px;font-weight:700;margin:10px 0 6px;color:var(--text)}
+.info-text h3:first-child{margin-top:0}
+.info-text ul{margin:6px 0 0 18px;color:var(--text)}
+.info-text li{margin:4px 0}
+
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+.btn-year{
+  border:1px solid var(--border);
+  background:var(--surface-2);
+  color:var(--text);
+  border-radius:var(--pill);
+  padding:8px 12px;
+  font-size:13px;
+  font-weight:650;
+  cursor:pointer;
+  box-shadow:var(--shadow);
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+}
+.btn-year:hover{filter:brightness(0.98)}
+.btn-year.active{
+  border-color:rgba(6,132,189,.45);
+  box-shadow:0 0 0 4px rgba(6,132,189,.18),var(--shadow);
+}
+.dot{width:10px;height:10px;border-radius:50%;display:inline-block}
+
+.block{background:var(--surface-2);border:1px solid var(--border);border-radius:var(--r-lg);padding:14px 16px;margin-bottom:12px}
+.block-title{font-size:14px;font-weight:700;margin-bottom:8px}
+
+.epa-item{
+  background:var(--surface-2);
+  border:1px solid var(--border);
+  border-radius:var(--r-md);
+  padding:10px 12px;
+  margin-top:8px;
+}
+.epa-item-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.epa-competency{font-size:13.5px;font-weight:650;line-height:1.35}
+.badge{
+  border:1px solid var(--border);
+  background:var(--surface);
+  padding:3px 8px;
+  border-radius:var(--pill);
+  font-size:12px;
+  color:var(--muted);
+  white-space:nowrap;
+}
+.epa-meta{
+  margin-top:4px;
+  font-size:12px;
+  color:var(--muted);
+}
+.desc{
+  margin-top:6px;
+  padding-left:18px;
+  font-size:13px;
+  color:var(--muted);
+}
+.desc li{margin-top:3px}
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="header">
+      <div class="header-top">
+        <div>
+          <div class="kicker">EPA 1</div>
+          <div class="h1">Handlägga en okomplicerad patient</div>
+        </div>
+      </div>
+
+      <div class="meta-row">
+        <div class="meta-pill">
+          <span class="meta-label">EPA</span>
+          <span class="meta-value">1 - Handlägga en okomplicerad patient</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <button class="dropdown-toggle" id="toggleBtn" onclick="toggleDropdown()">Instruktioner</button>
+        <div class="dropdown-content" id="dropdownContent">
+          <div class="info-text">
+            <h3>Bedömning och handläggning av patienter med prioritet 3 eller 4, med vanliga sökorsaker</h3>
+            <ul>
+              <li>relevant anamnes och status</li>
+              <li>överväga anamnestiska och statusfynd som ökar sannolikheten för allvarlig patologi</li>
+              <li>känna igen när patienten inte passar in i sedvanliga algoritmer och bredda eller justera utrednings- och behandlingsplanen när så behövs</li>
+              <li>lägga upp en plan för disposition och eventuell vidare utredning samt eventuell behandling de närmsta timmarna</li>
+              <li>har förmåga att på ett relevant och rimligt sätt avgränsa sin utredning, undvika över-utredning</li>
+              <li>dokumentera beslutsfattande</li>
+              <li>kommunicera med patienten på ett tydligt, effektivt, medkännande och respektfullt sätt</li>
+            </ul>
+
+            <h3>Exempel på sökorsaker som patienter som ingår i denna EPA kan ha:</h3>
+            <ul>
+              <li>extremitetssmärta och -svullnad</li>
+              <li>ledsmärta och -svullnad</li>
+              <li>ryggsmärta</li>
+              <li>analsmärta</li>
+              <li>ögonsmärta, synrubbning inklusive synbortfall och dubbelseende, röda ögat</li>
+              <li>öron-, näsa-, halssmärta, epistaxis, sväljningssvårigheter, hosta</li>
+              <li>feber</li>
+              <li>ikterus</li>
+              <li>illamående, kräkning</li>
+              <li>klåda, hudutslag</li>
+              <li>underlivsbesvär, vaginal blödning</li>
+              <li>urinvägsbesvär, hematuri</li>
+              <li>diarré, förstoppning</li>
+            </ul>
+
+            <h3>Exempel på färdigheter som ingår i denna EPA:</h3>
+            <ul>
+              <li>anamnes och status, inklusive bukstatus, nervstatus, ledstatus, distalstatus, ögonstatus, ÖNH status</li>
+              <li>systematisk EKG-tolkning, systematisk blodgastolkning</li>
+              <li>avlägsnande av främmande kropp inkl i ögat utanför optiska axeln</li>
+              <li>tamponadbehandling av extern otit</li>
+              <li>handläggning av främre och bakre epistaxis</li>
+              <li>artrocentes</li>
+              <li>UL av proximala vener, nedre extremitet (DVT)</li>
+              <li>tolkning av skelettröntgen</li>
+              <li>reponering av luxerad led (främre axellux, caput radii, IP-lux, bakre höftlux)</li>
+              <li>reponering av distal radiusfraktur</li>
+              <li>sårhandläggning inkl odling, anestesi, sutur, såromläggning; incision av böld och bursit</li>
+              <li>hantering av PEG och stomi</li>
+              <li>KAD inkl suprapubiskateter</li>
+              <li>dopplerundersökning av perifera pulsar och blodtryck</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">ST</div>
+        <div class="toolbar">
+          <button class="btn-year" id="btnLight" type="button">
+            <span class="dot" style="background:#d7e3bc"></span>År 1–2
+          </button>
+          <button class="btn-year" id="btnYellow" type="button">
+            <span class="dot" style="background:#ffd400"></span>År 3–4
+          </button>
+          <button class="btn-year" id="btnDark" type="button">
+            <span class="dot" style="background:#00b050"></span>År 5
+          </button>
+        </div>
+      </div>
+
+      <div id="content"></div>
+    </div>
+  </div>
+
+  <script>
+    function toggleDropdown() {
+      const btn = document.getElementById("toggleBtn");
+      const content = document.getElementById("dropdownContent");
+      btn.classList.toggle("open");
+      content.classList.toggle("open");
+    }
+
+    // STATIC data extracted from your Excel
+    const DATA = [
+      {"section": "Anamnes och status", "level": "Nivå 1", "year_band": "light", "competency": "Genomföra en tillförlitlig och noggrann anamnes (MAPLES, OPQRST) och status med fokus på sökorsak", "descriptors": ["Utb: Internutbildning", "Bed: Medsittning"]},
+      {"section": "Övrig datainslaming inklusive prov", "level": "Nivå 1", "year_band": "light", "competency": "Få fram relevant data som behövs för att utforma en lämplig handlingsplan (RETTS-blad, datajournal, anhöriga förutom anamnes och status)", "descriptors": ["Utb: Klinisk tjänstgöring", "Bed: Diskussion under klinisk tjänstgöring"]},
+      {"section": "Differentialdiagnostik och sannolikhetsbedömning", "level": "Nivå 1", "year_band": "light", "competency": "Skapa en bred differentialdiagnostik som inkluderar potentiellt allvarliga etiologier och sedan snäva ner och rangordna baserat på insamlad information", "descriptors": ["Utb: Internutbildning\nBed: CBD, Mini-Cex, medsittning"]},
+      {"section": "Utredning och initial behandling", "level": "Nivå 1", "year_band": "light", "competency": "Ordinera läkemedel korrekt", "descriptors": ["Utb: Läkemedelsutbildning, klinisk tjänstgöring", "Bed: CBD med kontroll RETTS-blad samt ordinationer i datajournal"]},
+      {"section": "Disposition", "level": "Nivå 1", "year_band": "light", "competency": "Försäkra sig om att alla provresultat och vitalparametrar är kontrollerade innan hemskrivning och fånga upp onormala värden", "descriptors": ["Utb: Klinisk tjänstgöring", "Bed: Aktiv handledning inför hemskrivning"]},
+      {"section": "Kommunikation", "level": "Nivå 1", "year_band": "light", "competency": "Visa ett genuint intresse i patienter genom verbal och icke-verbal kommunikation, genom aktivt lyssnande och bemöta patienters och anhörigas oro", "descriptors": ["Utb: Ledarskapsutbildning", "Bed: Medsittning, patientenkät"]},
+      {"section": "Kommunikation", "level": "Nivå 1", "year_band": "light", "competency": "Försäkra sig om att patienter förstår genom att be dem att upprepa det som sagts, eller använda andra accepterade tekniker", "descriptors": ["Utb: Ledarskap- eller kommunikationsutbildning", "Bed: Medsittning vid ut-samtal"]},
+      {"section": "Kommunikation", "level": "Nivå 1", "year_band": "light", "competency": "Samtala om riskfaktorer och riskbeteenden i patientmötet; kunna ge råd om hur och var patienterna kan få hjälp att ändra beteende/vanor", "descriptors": ["Utb: Ledarskapsutbildning, kommunikationskurs", "Bed: Medsittning, klinisk observation"]},
+      {"section": "Kommunikation", "level": "Nivå 1", "year_band": "light", "competency": "Kommunicera tankar och planer kortfattat och noggrant till instruktionshandledare", "descriptors": ["Utb: Klinisk tjänstgöring", "Bed: Feedback under och efter arbetspassen"]},
+      {"section": "Kommunikation", "level": "Nivå 1", "year_band": "light", "competency": "Försäkra sig om att ens egen dokumentation är adekvat och korrekt", "descriptors": ["Utb: Klinisk tjänstgöring, reflektion", "Bed: Handledarsamtal, journalgenomgång"]},
+      {"section": "Övrigt", "level": "Nivå 1", "year_band": "light", "competency": "Arbeta enligt basala hygienrutiner vid patientkontakt samt olika procedurer", "descriptors": ["Utb: webbaserat via intranätet Basala hygienrutiner och vårdhygien", "Bed: Klinisk observation"]},
+      {"section": "Anamnes och status", "level": "Nivå 2", "year_band": "yellow", "competency": "Känna igen när en presentation inte faller in i den vanliga algoritmen och kräver en alternativ utredning eller handlingsplan", "descriptors": ["Utb: Internutbildning", "Bed: CBD"]},
+      {"section": "Anamnes och status", "level": "Nivå 2", "year_band": "yellow", "competency": "Prioritera akuta ögontillstånd och veta vilka som kan vänta och vilka som måste få vård omgående", "descriptors": ["Utb: Egna studier", "Bed: Handledarsamtal"]},
+      {"section": "Anamnes och status", "level": "Nivå 2", "year_band": "yellow", "competency": "Genomföra ögonundersökning med spaltlampa/ögonmikroskop", "descriptors": ["Utb: Sidotjänstgöring Ögon", "Bed: DT 4 ögon"]},
+      {"section": "Anamnes och status", "level": "Nivå 2", "year_band": "yellow", "competency": "Genomföra ÖNH-status", "descriptors": ["Utb: Sidotjänstgöring ÖNH/ praktiska utbildningsdagar \nBed: ÖNH DT 5"]},
+      {"section": "Anamnes och status", "level": "Nivå 2", "year_band": "light", "competency": "Genomföra ledstatus", "descriptors": ["Utb: internutbildning, klinisk tjänstgöring \nBed: Ort DT 6"]},
+      {"section": "Anamnes och status", "level": "Nivå 2", "year_band": "yellow", "competency": "Genomföra gynekologiskt status hos icke-gravid", "descriptors": ["Utb: Sidotjänstgöring Gyn", "Bed: Medsittning, DOPS"]},
+      {"section": "Anamnes och status", "level": "Nivå 3", "year_band": "yellow", "competency": "Genomföra gynekologiskt status hos gravid", "descriptors": ["Utb: Sidotjänstgöring Gyn/Ob", "Bed: Medsittning, DOPS"]},
+      {"section": "Anamnes och status", "level": "Nivå 4", "year_band": "yellow", "competency": "Bedöma fostrets hjärtaktivitet", "descriptors": ["Utb: Sidotjänstgöring Gyn/Ob", "Bed: Medsittning, DOPS"]},
+      {"section": "Övrig datainslaming inklusive prov", "level": "Nivå 2", "year_band": "light", "competency": "Tolka testresultat korrekt", "descriptors": ["Utb: Internutbildning"]},
+      {"section": "Övrig datainslaming inklusive prov", "level": "Nivå 1", "year_band": "yellow", "competency": "Systematisk EKG-tolkning", "descriptors": ["Utb: Internutbildning\nBed: EKG DT 1"]},
+      {"section": "Övrig datainslaming inklusive prov", "level": "Nivå 1", "year_band": "yellow", "competency": "Systematisk blodgastolkning", "descriptors": ["Utb: Internutbildning\nBed: Blodgas DT 1"]},
+      {"section": "Övrig datainslaming inklusive prov", "level": "Nivå 3", "year_band": "yellow", "competency": "Tolka skelett röntgen", "descriptors": ["Utb: klinisk tjänstgöring, jämför egna tolkningar med röntgen och ortoped\nBed: Handledardiskussioner och genomgång"]},
+      {"section": "Övrig datainslaming inklusive prov", "level": "Nivå 3", "year_band": "yellow", "competency": "Genomföra och tolka DVT-UL", "descriptors": ["Utb: UL-kurs, HL-utb\nBed: DOPS, Medsittning under handledningstillfälle"]},
+      {"section": "Utredning och initial behandling", "level": "Nivå 2", "year_band": "yellow", "competency": "Formulera en initial utredningsplan och fullfölja denna, inklusive använda sig av clinical decision rules och andra evidensbaserade strategier", "descriptors": ["Utb: Internutbildning", "Bed: CBD, ortopedi DT 6, handledardiskussioner, journalgenomgångar"]},
+      {"section": "Utredning och initial behandling", "level": "Nivå 3", "year_band": "dark", "competency": "Formulera en hel utredningsplan för akutbesöket inklusive OM- och D-resonemang samt förutse och planera disposition", "descriptors": ["Utb: klinisk tjänstgöring\nBed: Fördjupade handledarsamtal, CBD"]},
+      {"section": "Utredning och initial behandling", "level": "Nivå 2", "year_band": "light", "competency": "Välja lämpliga farmakologiska behandlingar samt ta hänsyn till allergier, interaktioner, resistens, ålder", "descriptors": ["Utb: Läkemedelskurs, klinisk tjänstgöring\nBed: Handledarsamtal, CBD"]},
+      {"section": "Utredning och initial behandling", "level": "Nivå 2", "year_band": "yellow", "competency": "Välja lämpliga icke-farmakologiska behandlingar, besluta om handläggning och uppföljning på ett evidensbaserat sätt", "descriptors": ["Utb: Klinisk tjänstgöring\nBed: Handledarsamtal, CBD"]},
+      {"section": "Disposition", "level": "Nivå 3", "year_band": "yellow", "competency": "Utforma plan vid hemgång med lämplig uppföljning och information om när patienten ska söka akut", "descriptors": ["Utb: klinisk tjänstgöring\nBed: Medsittning vid ut-samtal"]},
+      {"section": "Kommunikation", "level": "Nivå 2", "year_band": "yellow", "competency": "Förstå vikten av, och bemöta, patienters åsikter, känslor och värderingar", "descriptors": ["Utb: Etikkurs, jämställdhetsutbildning, HL-Utb\nBed: Medsittning, patientenkät"]},
+      {"section": "Kommunikation", "level": "Nivå 2", "year_band": "yellow", "competency": "Ge ärliga svar till patienter och kunna erkänna när man inte vet svaren", "descriptors": ["Utb: Etikkurs, jämställdhetsutbildning, HL-Utb\nBed: Medsittning, patientenkät"]},
+      {"section": "Kommunikation", "level": "Nivå 2", "year_band": "yellow", "competency": "Demonstrera tydlig, effektiv, medmänsklig och respektfull kommunikation och undvika obegripliga medicinska termer", "descriptors": ["Utb: Etikkurs, jämställdhetsutbildning, HL-Utb\nBed: Medsittning, patientenkät"]},
+      {"section": "Kommunikation", "level": "Nivå 2", "year_band": "yellow", "competency": "Handleda AT-läkare och studenter i att kommunicera sina tankar och planer samt korrigera på ett konstruktivt sätt", "descriptors": ["Utb: klinisk tjänstgöring, HL-utb, ledarskapsutbildning\nBed: Feedback under och efter arbetspassen"]},
+      {"section": "Kommunikation", "level": "Nivå 3", "year_band": "dark", "competency": "Handleda som instruktionshandledare", "descriptors": ["Utb: HL-utbildning\nBed: Medsittning under handledningstillfälle"]},
+      {"section": "Kommunikation", "level": "Nivå 3", "year_band": "yellow", "competency": "Dokumentera tankegångar på akuten och beslutsfattandet till framtida vårdgivare på ett koncist sätt", "descriptors": ["Utb: klinisk tjänstgöring, reflektion\nBed: Journalgenomgång"]},
+      {"section": "Kommunikation", "level": "Nivå 4", "year_band": "dark", "competency": "Gå igenom andras journalanteckningar på förfrågan och ge tydlig och konstruktiv feedback", "descriptors": ["Utb: HL-utbildning\nBed: Medsittning under handledningstillfälle"]},
+      {"section": "Övrigt", "level": "Nivå 2", "year_band": "yellow", "competency": "Ta ställning till isolering gällande MRB, VRE, ESBL och ESBL karba, diarré/kräkning, influensa och andra luftburna infektioner inkl SARS-CoV-2", "descriptors": ["Utb: valfri kurs i vårdhygien och smittskydd, klinisk tjänstgöring\nBed: Klinisk observation och CBD"]},
+      {"section": "Övrigt", "level": "Nivå 3", "year_band": "dark", "competency": "Arbeta med infektionskänsliga patienter inkl barn under RSV-säsong; ansvara för att hindra spridning av vårdrelaterade infektioner", "descriptors": ["Utb: valfri kurs i vårdhygien och smittskydd, klinisk tjänstgöring\nBed: Klinisk observation och CBD"]}
+    ];
+
+    const yearOrder = { light: 1, yellow: 2, dark: 3 };
+    const yearLabel = { light: "År 1–2", yellow: "År 3–4", dark: "År 5" };
+
+    const content = document.getElementById("content");
+    const btnLight = document.getElementById("btnLight");
+    const btnYellow = document.getElementById("btnYellow");
+    const btnDark = document.getElementById("btnDark");
+
+    function setActive(btn) {
+      [btnLight, btnYellow, btnDark].forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+    }
+
+    function esc(s) {
+      return String(s ?? "")
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;");
+    }
+
+    function render(maxYear) {
+      const filtered = DATA.filter(r => yearOrder[r.year_band] <= maxYear);
+
+      const bySection = {};
+      filtered.forEach(r => {
+        (bySection[r.section] ??= []).push(r);
+      });
+
+      const sections = Object.keys(bySection).sort((a,b) => a.localeCompare(b,"sv"));
+      const levelRank = { "Nivå 1":1, "Nivå 2":2, "Nivå 3":3, "Nivå 4":4 };
+
+      let out = "";
+      for (const section of sections) {
+        const items = bySection[section]
+          .slice()
+          .sort((a,b) =>
+            (levelRank[a.level] - levelRank[b.level]) ||
+            (yearOrder[a.year_band] - yearOrder[b.year_band]) ||
+            a.competency.localeCompare(b.competency,"sv")
+          );
+
+        out += `<div class="block epa-section">`;
+        out += `<div class="block-title">${esc(section)}</div>`;
+
+        for (const item of items) {
+          const dotColor =
+            item.year_band === "light" ? "#d7e3bc" :
+            item.year_band === "yellow" ? "#ffd400" :
+            "#00b050";
+
+          out += `<div class="epa-item">`;
+          out += `  <div class="epa-item-head">`;
+          out += `    <div class="epa-competency"><span class="dot" style="background:${dotColor};margin-right:8px"></span>${esc(item.competency)}</div>`;
+          out += `    <div class="badge">${esc(item.level)}</div>`;
+          out += `  </div>`;
+          out += `  <div class="epa-meta">${esc(yearLabel[item.year_band])}</div>`;
+
+          if (item.descriptors && item.descriptors.length) {
+            out += `<ul class="desc">`;
+            item.descriptors.forEach(d => {
+              String(d).split(/\n+/).filter(Boolean).forEach(line => {
+                out += `<li>${esc(line.trim())}</li>`;
+              });
+            });
+            out += `</ul>`;
+          }
+
+          out += `</div>`;
+        }
+
+        out += `</div>`;
+      }
+
+      content.innerHTML = out || `<div class="block"><div class="block-title">Inga kompetenser matchar filtret.</div></div>`;
+    }
+
+    btnLight.addEventListener("click", () => { setActive(btnLight); render(1); });
+    btnYellow.addEventListener("click", () => { setActive(btnYellow); render(2); });
+    btnDark.addEventListener("click", () => { setActive(btnDark); render(3); });
+
+    // initial view
+    setActive(btnLight);
+    render(1);
+  </script>
+</body>
+</html>

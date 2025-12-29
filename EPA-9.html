@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EPA 9 - Ansvara för undervisning, utbildning och vidareutveckling av arbetsplatsen</title>
+  <style>
+:root{
+  --bg: #f3f4f4;
+  --surface: #f0f1f2;
+  --surface-2: #ffffff;
+  --border: #dcddde;
+  --text: #37352f;
+  --muted: #626161;
+  --soft: #9a9a99;
+  --teal: #0684bd;
+  --teal-ink: #dceef7;
+  --blue-ink: #e0e8ff;
+  --orange-ink: #fde8dc;
+  --red-ink: #fce0dd;
+  --shadow: 0 2px 8px rgba(0,0,0,0.08);
+  --r-lg: 12px;
+  --r-md: 8px;
+  --pill: 999px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  padding: 24px 16px;
+}
+.page{max-width:1200px;margin:0 auto}
+.header{display:flex;flex-direction:column;gap:12px;margin-bottom:22px}
+.header-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+.kicker{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--teal)}
+.h1{font-size:28px;font-weight:650;letter-spacing:-.03em;line-height:1.15;color:var(--text)}
+.meta-row{display:flex;gap:10px;flex-wrap:wrap;font-size:12px}
+.meta-pill{display:inline-flex;gap:8px;align-items:center;border:1px solid var(--border);background:var(--surface);padding:6px 10px;border-radius:var(--pill)}
+.meta-label{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--soft)}
+.meta-value{color:var(--text);font-weight:500}
+
+.grid{display:grid;grid-template-columns:1fr;gap:18px}
+
+.card{background:var(--surface-2);border:1px solid var(--border);border-radius:var(--r-lg);padding:16px 18px 18px;box-shadow:var(--shadow)}
+.card-title{font-size:13px;font-weight:650;text-transform:uppercase;letter-spacing:.14em;color:var(--soft);margin-bottom:10px}
+
+/* dropdown instructions */
+.dropdown-toggle{
+  background:none;
+  border:none;
+  color:var(--teal);
+  cursor:pointer;
+  font-size:13px;
+  font-weight:700;
+  padding:0;
+  text-align:left;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  width:100%;
+}
+.dropdown-toggle::before{
+  content:"▶";
+  display:inline-block;
+  transition:transform 0.2s;
+  font-size:11px;
+}
+.dropdown-toggle.open::before{
+  transform:rotate(90deg);
+}
+.dropdown-content{
+  display:none;
+  margin-top:12px;
+}
+.dropdown-content.open{
+  display:block;
+}
+
+.info-text{color:var(--text);font-size:13px;line-height:1.45}
+.info-text h3{font-size:13px;font-weight:700;margin:10px 0 6px;color:var(--text)}
+.info-text h3:first-child{margin-top:0}
+.info-text p{margin:6px 0;}
+.info-text ul{margin:6px 0 0 18px;color:var(--text)}
+.info-text li{margin:4px 0}
+
+/* ST buttons */
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+.btn-year{
+  border:1px solid var(--border);
+  background:var(--surface-2);
+  color:var(--text);
+  border-radius:var(--pill);
+  padding:8px 12px;
+  font-size:13px;
+  font-weight:650;
+  cursor:pointer;
+  box-shadow:var(--shadow);
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+}
+.btn-year:hover{filter:brightness(0.98)}
+.btn-year.active{
+  border-color:rgba(6,132,189,.45);
+  box-shadow:0 0 0 4px rgba(6,132,189,.18),var(--shadow);
+}
+.dot{width:10px;height:10px;border-radius:50%;display:inline-block}
+
+/* competencies */
+.block{background:var(--surface-2);border:1px solid var(--border);border-radius:var(--r-lg);padding:14px 16px;margin-bottom:12px}
+.block-title{font-size:14px;font-weight:700;margin-bottom:8px}
+
+.epa-item{
+  background:var(--surface-2);
+  border:1px solid var(--border);
+  border-radius:var(--r-md);
+  padding:10px 12px;
+  margin-top:8px;
+}
+.epa-item-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.epa-competency{font-size:13.5px;font-weight:650;line-height:1.35}
+.badge{
+  border:1px solid var(--border);
+  background:var(--surface);
+  padding:3px 8px;
+  border-radius:var(--pill);
+  font-size:12px;
+  color:var(--muted);
+  white-space:nowrap;
+}
+.epa-meta{
+  margin-top:4px;
+  font-size:12px;
+  color:var(--muted);
+}
+.desc{
+  margin-top:6px;
+  padding-left:18px;
+  font-size:13px;
+  color:var(--muted);
+}
+.desc li{margin-top:3px}
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="header">
+      <div class="header-top">
+        <div>
+          <div class="kicker">EPA 9</div>
+          <div class="h1">Ansvara för undervisning, utbildning och vidareutveckling av arbetsplatsen</div>
+        </div>
+      </div>
+
+      <div class="meta-row">
+        <div class="meta-pill">
+          <span class="meta-label">EPA</span>
+          <span class="meta-value">9 - Ansvara för undervisning, utbildning och vidareutveckling av arbetsplatsen</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid">
+      <!-- Instruktioner dropdown -->
+      <div class="card">
+        <button class="dropdown-toggle" id="toggleBtn" onclick="toggleDropdown()">Instruktioner</button>
+        <div class="dropdown-content" id="dropdownContent">
+          <div class="info-text">
+            <h3>Undervisning, utbildning och verksamhetsutveckling</h3>
+            <p>Ta ansvar för både det egna kontinuerliga lärandet samt lärandet på kliniken. Bidra till en lärandemiljö med fokus på evidensbaserad medicin och ett vetenskapligt synsätt. Bidra till att driva utvecklingen på kliniken framåt.</p>
+
+            <h3>Huvudsakliga områden:</h3>
+            <ul>
+              <li>Handledning</li>
+              <li>Undervisning</li>
+              <li>Verksamhetsutveckling</li>
+              <li>Medicinsk vetenskap</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- ST filter -->
+      <div class="card">
+        <div class="card-title">ST</div>
+        <div class="toolbar">
+          <button class="btn-year" id="btnLight" type="button">
+            <span class="dot" style="background:#d7e3bc"></span>År 1–2
+          </button>
+          <button class="btn-year" id="btnYellow" type="button">
+            <span class="dot" style="background:#ffd400"></span>År 3–4
+          </button>
+          <button class="btn-year" id="btnDark" type="button">
+            <span class="dot" style="background:#00b050"></span>År 5
+          </button>
+        </div>
+      </div>
+
+      <div id="content"></div>
+    </div>
+  </div>
+
+  <script>
+    function toggleDropdown() {
+      const btn = document.getElementById("toggleBtn");
+      const content = document.getElementById("dropdownContent");
+      btn.classList.toggle("open");
+      content.classList.toggle("open");
+    }
+
+    // STATIC data extracted from epa9.xlsx (EPA 9)
+    const DATA = [
+      {"section":"Handledning","level":"Nivå 1","year_band":"light","competency":"Handleda och instruera medarbetare och studenter utifrån evidensbaserad medicin","descriptors":["Utb Handledarutbildning","Bed Medsittning, skriftlig feedback från student efter arbetat pass"]},
+      {"section":"Handledning","level":"Nivå 2","year_band":"yellow","competency":"Handleda och instruera AT-läkare under kliniska pass","descriptors":["Utb Handledarutbildning","Bed Medsittning, skriftlig feedback från AT-läkare efter arbetat pass"]},
+      {"section":"Handledning","level":"Nivå 3","year_band":"dark","competency":"Handleda och instruera ST-läkare under kliniska pass","descriptors":["Utb Handledarutbildning inkl utb i bedömningsmetoder","Bed Medsittning, skriftlig feedback från ST-läkare efter arbetat pass, ST-läkarkollegium"]},
+      {"section":"Handledning","level":"Nivå 4","year_band":"dark","competency":"Fungera som huvudhandledare åt en AT-läkare/BT-läkare","descriptors":["Utb Handledarutbildning, bedömningsmetoder","Bed Begär årlig feedback från ST, helst skriftlig"]},
+
+      {"section":"Undervisning","level":"Nivå 1","year_band":"light","competency":"Planera, genomföra och utvärdera undervisning på kliniken","descriptors":["Utb pedagogikutb","Bed Muntlig och skriftlig feedback"]},
+      {"section":"Undervisning","level":"Nivå 2","year_band":"yellow","competency":"Planera, genomföra och utvärdera undervisning utanför kliniken, på regional nivå (t.ex akutsjukvård för AT)","descriptors":["Utb pedagogikutb","Bed Muntlig och skriftlig feedback"]},
+      {"section":"Undervisning","level":"Nivå 4","year_band":"dark","competency":"Planera och genomföra undervisning på nationell eller internationell nivå (t.ex SWEETs, EUSEM)","descriptors":["Utb pedagogikutb","Bed Muntlig och skriftlig feedback"]},
+
+      {"section":"Verksamhetsutveckling","level":"Nivå 2","year_band":"yellow","competency":"Genomföra en risk- och händelseanalys","descriptors":["Utb ROKA-utb?","Bed Feedback från deltagare"]},
+      {"section":"Verksamhetsutveckling","level":"Nivå 3","year_band":"dark","competency":"Ta ansvar för integreringen av nya tekniker och metoder i det dagliga hälso- och sjukvårdsarbetet","descriptors":["Utb Klinisk tjänstgöring","Bed medarbetarsamtal chef"]},
+      {"section":"Verksamhetsutveckling","level":"Nivå 4","year_band":"dark","competency":"Ta ansvar för att förbättrande åtgärder, processer och rutiner för patientnytta genomförs systematiskt. Kritiskt granska den egna verksamheten. Ha hand om enstaka avvikelser","descriptors":["Utb patientsäkerhetskurs, Avvikelsehantering under handledning","Bed Medarbetarsamtal chef, handledarsamtal"]},
+      {"section":"Verksamhetsutveckling","level":"Nivå 1","year_band":"light","competency":"Planera ett kvalitets- och utvecklingsarbete utifrån evidensbaserad medicin","descriptors":["Utb kurs i kvalitetsarbete (ej krav)","Bed Feedback på plan från handledare"]},
+      {"section":"Verksamhetsutveckling","level":"Nivå 2","year_band":"yellow","competency":"Implementera kvalitets- och utvecklingsarbetet","descriptors":["Utb kurs i kvalitetsarbete (ej krav)","Bed Feedback från deltagare/ medarbetare på implementeringen"]},
+      {"section":"Verksamhetsutveckling","level":"Nivå 3","year_band":"dark","competency":"Utvärdera och sammanställa kvalitet- och utvecklingsarbetet","descriptors":["Utb kurs i kvalitetsarbete (ej krav)","Bed Genomgång handledare"]},
+      {"section":"Verksamhetsutveckling","level":"Nivå 4","year_band":"dark","competency":"Framtagande och implementering av lokala vårdprogram","descriptors":["Utb Klinisk tjänstgöring","Bed Utvärdering av färdigt program"]},
+
+      {"section":"Medicinsk vetenskap","level":"Nivå 1","year_band":"light","competency":"Ha ett medicinskt vetenskapligt förhållningssätt till rutiner och arbetet på kliniken","descriptors":["Utb Självstudier, läsa aktuella artiklar om akutsjukvård","Bed Handledarsamtal"]},
+      {"section":"Medicinsk vetenskap","level":"Nivå 2","year_band":"yellow","competency":"Kritiskt granska och värdera medicinsk vetenskaplig information","descriptors":["Utb internutbildning - FoU-dagen","Bed Artikelgranskning för kliniken - muntlig och skriftlig utvärdering"]},
+      {"section":"Medicinsk vetenskap","level":"Nivå 3","year_band":"dark","competency":"Uppvisa fördjupade kunskaper om medicinskt vetenskapliga metoder och etiska principer","descriptors":["Utb internutbildning - FoU-dagen, forskningskurs","Bed handledarsamtal"]},
+      {"section":"Medicinsk vetenskap","level":"Nivå 4","year_band":"dark","competency":"Genomföra ett eget skriftligt arbete enligt vetenskapliga principer","descriptors":["Utb under handledning","Bed intygas av vetenskaplig handledare"]}
+    ];
+
+    const yearOrder = { light: 1, yellow: 2, dark: 3 };
+    const yearLabel = { light: "År 1–2", yellow: "År 3–4", dark: "År 5" };
+
+    const content = document.getElementById("content");
+    const btnLight = document.getElementById("btnLight");
+    const btnYellow = document.getElementById("btnYellow");
+    const btnDark = document.getElementById("btnDark");
+
+    function setActive(btn) {
+      [btnLight, btnYellow, btnDark].forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+    }
+
+    function esc(s) {
+      return String(s ?? "")
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;");
+    }
+
+    function render(maxYear) {
+      const filtered = DATA.filter(r => yearOrder[r.year_band] <= maxYear);
+
+      const bySection = {};
+      filtered.forEach(r => {
+        (bySection[r.section] ??= []).push(r);
+      });
+
+      const sections = Object.keys(bySection).sort((a,b) => a.localeCompare(b,"sv"));
+      const levelRank = { "Nivå 1":1, "Nivå 2":2, "Nivå 3":3, "Nivå 4":4 };
+
+      let out = "";
+      for (const section of sections) {
+        const items = bySection[section]
+          .slice()
+          .sort((a,b) =>
+            (levelRank[a.level] - levelRank[b.level]) ||
+            (yearOrder[a.year_band] - yearOrder[b.year_band]) ||
+            a.competency.localeCompare(b.competency,"sv")
+          );
+
+        out += `<div class="block epa-section">`;
+        out += `<div class="block-title">${esc(section)}</div>`;
+
+        for (const item of items) {
+          const dotColor =
+            item.year_band === "light" ? "#d7e3bc" :
+            item.year_band === "yellow" ? "#ffd400" :
+            "#00b050";
+
+          out += `<div class="epa-item">`;
+          out += `  <div class="epa-item-head">`;
+          out += `    <div class="epa-competency"><span class="dot" style="background:${dotColor};margin-right:8px"></span>${esc(item.competency)}</div>`;
+          out += `    <div class="badge">${esc(item.level)}</div>`;
+          out += `  </div>`;
+          out += `  <div class="epa-meta">${esc(yearLabel[item.year_band])}</div>`;
+
+          if (item.descriptors && item.descriptors.length) {
+            out += `<ul class="desc">`;
+            item.descriptors.forEach(d => {
+              String(d).split(/\n+/).filter(Boolean).forEach(line => {
+                out += `<li>${esc(line.trim())}</li>`;
+              });
+            });
+            out += `</ul>`;
+          }
+
+          out += `</div>`;
+        }
+
+        out += `</div>`;
+      }
+
+      content.innerHTML = out || `<div class="block"><div class="block-title">Inga kompetenser matchar filtret.</div></div>`;
+    }
+
+    btnLight.addEventListener("click", () => { setActive(btnLight); render(1); });
+    btnYellow.addEventListener("click", () => { setActive(btnYellow); render(2); });
+    btnDark.addEventListener("click", () => { setActive(btnDark); render(3); });
+
+    // initial view
+    setActive(btnLight);
+    render(1);
+  </script>
+</body>
+</html>
