@@ -520,6 +520,27 @@
       const viewport = document.getElementById('viewport');
       const stage = document.getElementById('stage');
       const img = document.getElementById('diagram');
+
+      // Fallback if local image is missing on GitHub Pages (case/path/404)
+      const FALLBACK_SRC = 'https://raw.githubusercontent.com/Nal-schema/Schema/refs/heads/main/Kompetenstrappa.png';
+      let triedFallback = false;
+
+      function swapToFallback(){
+        if(triedFallback) return;
+        triedFallback = true;
+        // Keep UX quiet: show badge update, and try remote PNG
+        badge.textContent = 'Laddar…';
+        img.src = FALLBACK_SRC;
+      }
+
+      // If local file fails to load (404 etc), switch to fallback
+      img.addEventListener('error', swapToFallback);
+
+      // Some browsers may not fire error reliably for cached failures; double-check soon after start
+      setTimeout(() => {
+        if(img.complete && (!img.naturalWidth || !img.naturalHeight)) swapToFallback();
+      }, 800);
+
       const badge = document.getElementById('badge');
 
       let scale = 1;
